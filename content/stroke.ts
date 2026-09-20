@@ -1,0 +1,145 @@
+// Copy for /stroke. Designed configuration.
+
+export const STROKE = {
+  title: "ARKA · Stroke — rehabilitation",
+  header: {
+    title: "Stroke",
+    cohort: "Rehabilitation",
+    status: "designed" as const,
+    illustrationAlt: "A person in rehabilitation with a caregiver, morning light in the room.",
+    ribbonLabel: "Light ribbon: a 07:00 wake anchor with a morning-light block",
+    lede: "One task per screen. Two people, one participant.",
+  },
+  goals: [
+    { text: "Morning bright-light routine", refs: ["brown2022"] },
+    { text: "Consistent wake-time anchoring", refs: ["mead2022"] },
+    { text: "Night light protection", refs: ["kim2021", "brown2022"] },
+  ],
+  loop: {
+    kicker: "The loop",
+    heading: "Dim wards, broken nights, slower recovery.",
+    nodes: [
+      { label: "Inadequate light in hospital environments", refs: ["bernhofer2013", "west2019"] },
+      { label: "Dysregulated sleep/wake", refs: ["korostovtseva2023", "hermann2016"] },
+      { label: "Post-stroke insomnia", refs: ["baylan2019"] },
+      { label: "Impaired neuroplasticity", refs: ["duss2016"] },
+      { label: "Delayed recovery" },
+    ],
+    body: "A wake anchor, a morning-light block and night protection are three places the loop can be interrupted from outside the ward.",
+  },
+  home: {
+    kicker: "Patient home is one task",
+    heading: "Good morning. One thing to do.",
+    body: "A large sun. Morning light, 30 minutes, START. A listen control. Nothing else. On completion the next task replaces the screen.",
+    greeting: "Good morning.",
+    task: { title: "Morning light", duration: "30 minutes", start: "START", listen: "Listen" },
+    done: { check: "✓ Done", title: "Morning light finished", next: "Next: Rest" },
+    simulate: "Show completion",
+    reset: "Back to task",
+  },
+  modes: {
+    kicker: "Accessibility modes",
+    heading: "Same screen, three ways.",
+    body: "The controls sit outside the phone. Each mode is described in text for screen readers.",
+    label: "Interface mode",
+    items: [
+      {
+        id: "standard",
+        label: "Standard",
+        describe: "Standard mode: greeting, sun illustration, task title, duration, a start button and a listen control.",
+        points: ["Type scale 1.4", "One task", "Listen control"],
+      },
+      {
+        id: "motor",
+        label: "Motor support",
+        describe: "Motor support mode: very large targets, generous spacing, controls placed within one-handed reach at the bottom of the screen, no precision gesture required.",
+        points: ["Very large targets", "Generous spacing", "One-handed reach", "No precision gestures"],
+      },
+      {
+        id: "communication",
+        label: "Communication support",
+        describe: "Communication support mode: one short plain instruction, an illustration beside it, read-aloud on by default, YES and LATER buttons instead of text entry, familiar vocabulary.",
+        points: ["One plain instruction", "Illustration beside it", "Read-aloud", "YES / LATER, no text entry"],
+      },
+    ],
+    communication: { instruction: "Go to the light.", yes: "YES", later: "LATER" },
+    closing: "Accessibility isn't one setting.",
+    designRefs: ["stroke-uiux", "aphasia-technology"],
+  },
+  two: {
+    kicker: "Two people, one participant",
+    heading: "The phone divides.",
+    body: "The patient side simplifies further. The caregiver side gains information.",
+    patient: { title: "Patient", task: "Morning light", cta: "START" },
+    caregiver: {
+      title: "Caregiver",
+      today: "Today",
+      items: [
+        { label: "Wake anchor", state: "done" },
+        { label: "Morning light", state: "done" },
+        { label: "Night protection", state: "pending" },
+      ],
+      adherence: "This week · 6 of 7 days",
+      message: "Message research team",
+    },
+    closing: "Same participant. Different information needs.",
+  },
+  actogram: {
+    kicker: "The actogram",
+    heading: "Fourteen days, double-plotted.",
+    body: "Each row is 48 hours: today beside tomorrow, so a pattern that crosses midnight stays readable. Light is drawn as brightness, sleep as dark bands.",
+    chartTitle: "Double-plotted actogram, 14 days",
+    summary:
+      "Actogram with fourteen rows, each spanning 48 hours. The first seven rows show fragmented sleep with wake times varying between 5:30 and 9:45 and dim daytime light. A divider marks the start of the intervention. The following seven rows show wake times converging on 07:00, a consolidated sleep band and a bright morning-light block each day.",
+    divider: "Intervention starts",
+    caption:
+      "How to read it: each row is one day plotted twice — hours 0–24 then 24–48 — so the same night appears at the right of one row and the left of the next. Dark bands are sleep; brighter cells are more light. Illustrative data.",
+    stepperLabel: "Actogram — draw rows",
+  },
+  anchor: {
+    kicker: "The anchor",
+    heading: "Wake times converging on 07:00.",
+    chartTitle: "Wake time over 14 days",
+    summary:
+      "Dot plot of wake time across fourteen days. The first seven vary between 5:30 and 9:45. After the intervention start, the wake times settle within fifteen minutes of 07:00.",
+    target: "07:00",
+  },
+  config: {
+    study: "ARKA Stroke Rehabilitation",
+    cohort: "Post-stroke, with caregiver",
+    tabs: [
+      { label: "Home", on: true, note: "checklist" },
+      { label: "Insights", on: true, note: "actogram" },
+      { label: "Inbox", on: true },
+      { label: "Caregiver view", on: true },
+      { label: "Lumi", on: false },
+    ],
+    targets: ["Morning light 30 min", "Wake anchor 07:00", "Night ≤ 1 mEDI"],
+    windows: ["Nudges to patient and caregiver"],
+    lumi: false,
+    typeScale: "1.4",
+    arms: ["Single arm (designed)"],
+  },
+  decision: {
+    n: 5,
+    label: "Design decision",
+    title: "One action per screen.",
+    lines: [
+      "Reduces simultaneous choices and interaction burden.",
+      "The next task replaces the screen rather than joining a list.",
+    ],
+    designRefs: ["stroke-uiux"],
+  },
+  rationale: {
+    button: "Design rationale",
+    title: "Why one task at a time",
+    paragraphs: [
+      "After a stroke, attention, motor control and language can each be affected differently. A dashboard asks all three to work at once.",
+      "One instruction, one button and a listen control ask for one thing. When it is done, the next task takes the whole screen.",
+      "The caregiver view carries the information the patient screen leaves out — adherence, what is pending, and a line to the research team.",
+      "The three accessibility modes are designed from published recommendations for stroke survivors and people with aphasia. None has been evaluated with participants yet.",
+    ],
+    designRefs: ["stroke-uiux", "aphasia-technology"],
+  },
+  closing: "One task at a time.",
+};
