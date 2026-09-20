@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ARKA — A research platform for changing how people live with light</title>
+    <meta
+      name="description"
+      content="ARKA is a research platform for light-based behavioural interventions, built at the Eye N' Brain lab, NUS Yong Loo Lin School of Medicine. One sensing and intervention platform, adapted to different people."
+    />
+    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#FAF8F5" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta property="og:title" content="ARKA — research platform for light-based behavioural interventions" />
+    <meta
+      property="og:description"
+      content="Measure light. Understand behaviour. Intervene when it matters. Built for research at the Eye N' Brain lab, NUS Medicine."
+    />
+    <meta property="og:type" content="website" />
+    <!-- Preload the route's above-the-fold image before the app bundle runs.
+         Paths mirror content/shared.ts ASSETS; the router preloads too. -->
+    <script>
+      (function () {
+        var base = "%BASE_URL%";
+        var seg = location.pathname.slice(base.length).replace(/^\/+|\/+$/g, "");
+        var map = {
+          "": "assets/brand/hero-ecosystem.webp",
+          healthy: "assets/illustrations/healthy.webp",
+          myopia: "assets/illustrations/myopia.webp",
+          glaucoma: "assets/illustrations/glaucoma.webp",
+          depression: "assets/illustrations/depression.webp",
+          stroke: "assets/illustrations/stroke.webp",
+        };
+        if (!(seg in map)) return;
+        var l = document.createElement("link");
+        l.rel = "preload";
+        l.as = "image";
+        l.setAttribute("fetchpriority", "high");
+        l.href = base + map[seg];
+        document.head.appendChild(l);
+      })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Fonts load without blocking first paint; metric-matched local fallbacks
+         in tokens.css hold the layout until they arrive. -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@400;500;600;700&family=Luckiest+Guy&family=Baloo+2:wght@500;600;700&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@400;500;600;700&family=Luckiest+Guy&family=Baloo+2:wght@500;600;700&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
