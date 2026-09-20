@@ -1,0 +1,829 @@
+/* Phone screen content. Authored at 390×844 logical px; scaled by the frame. */
+
+/* Tab bars */
+.ptabs {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  padding: 10px 8px 22px;
+  background: #fff;
+  border-top: 1px solid var(--line);
+}
+.ptabs--dark {
+  background: #1e1c19;
+  border-top: 0;
+}
+.ptab {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--muted);
+  min-width: 56px;
+}
+.ptabs--dark .ptab {
+  color: #b3ada3;
+}
+.ptab.is-active {
+  color: var(--ink);
+}
+.ptabs--dark .ptab.is-active {
+  color: #fff;
+}
+.ptabs--large .ptab {
+  font-size: 15px;
+  font-weight: 600;
+  gap: 6px;
+}
+
+/* ── Myopia (deployed) ── */
+.scr--myopia {
+  font-family: var(--font-body);
+}
+.m-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #e4f0e3;
+  color: #2f6b2c;
+  font-weight: 600;
+  font-size: 15px;
+  margin: 4px 0 16px;
+}
+.m-title {
+  font-family: var(--font-body);
+  font-size: 30px;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+.m-sub {
+  font-size: 16px;
+  color: var(--muted);
+  margin: 2px 0 0;
+}
+.m-asof {
+  font-size: 13px;
+  /* Deployed app uses #8a8578; darkened one step to hold 4.5:1 (spec §15). */
+  color: var(--muted);
+  margin: 2px 0 14px;
+}
+.m-card {
+  background: #fff;
+  border: 1px solid #e8e4df;
+  border-radius: 18px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+}
+.m-gauge-card {
+  text-align: center;
+  padding-top: 18px;
+}
+.mgauge {
+  width: 100%;
+  height: auto;
+  max-width: 300px;
+  margin: 0 auto;
+}
+.mgauge-tick {
+  font-size: 12px;
+  font-weight: 600;
+  font-family: var(--font-body);
+}
+.m-gauge-label {
+  margin: 4px 0 0;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  font-weight: 600;
+}
+.m-gauge-value {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 700;
+}
+.m-coach {
+  text-align: center;
+}
+.m-coach-lead {
+  color: var(--muted);
+  font-size: 15px;
+  margin: 4px 0 6px;
+}
+.m-coach-big {
+  font-size: 40px;
+  font-weight: 800;
+  margin: 0 0 6px;
+  letter-spacing: -0.02em;
+}
+.m-coach-line {
+  font-weight: 700;
+  font-size: 16px;
+  margin: 0 0 8px;
+}
+.m-coach-sub {
+  font-size: 14px;
+  color: var(--muted);
+  margin: 0;
+}
+.m-wear-title {
+  font-weight: 700;
+  font-size: 17px;
+  margin: 0;
+}
+
+/* Plant tab — Luckiest Guy / Baloo 2, as in the deployed app */
+.scr--plant .scr-body {
+  padding-top: 18px;
+}
+.mp-title {
+  font-family: var(--font-app-display);
+  font-weight: 400;
+  font-size: 36px;
+  margin: 0;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+.mp-sub {
+  font-family: var(--font-app-body);
+  font-weight: 600;
+  color: var(--muted);
+  font-size: 17px;
+  margin: 0 0 14px;
+}
+.mp-card {
+  padding: 18px 12px 16px;
+  border-radius: 22px;
+}
+.plant {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.plant-svg {
+  width: 100%;
+  max-width: 260px;
+  height: auto;
+  overflow: visible;
+}
+.plant-copy {
+  text-align: center;
+  padding-top: 8px;
+  font-family: var(--font-app-body);
+}
+.plant-copy p {
+  margin: 0;
+}
+.plant-count {
+  font-size: 48px;
+  line-height: 54px;
+  font-weight: 700;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.plant-count-label {
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 600;
+}
+.plant-headline {
+  font-size: 26px;
+  line-height: 32px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+.plant-subline {
+  margin-top: 6px !important;
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 600;
+  color: var(--muted);
+}
+.m-garden {
+  margin-top: 12px;
+  font-family: var(--font-app-body);
+}
+.m-garden-title {
+  font-weight: 700;
+  font-size: 19px;
+  margin: 0 0 8px;
+}
+.m-garden-row {
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+}
+.m-garden-cell {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  font-weight: 700;
+  font-size: 14px;
+  flex: 1;
+}
+.m-garden-cell--lock .m-lock {
+  width: 44px;
+  height: 46px;
+  border: 2px dashed #b8b1a6;
+  border-radius: 10px;
+  position: relative;
+}
+.m-garden-cell--lock .m-lock::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 12px;
+  height: 10px;
+  transform: translate(-50%, -30%);
+  border: 2px solid #b8b1a6;
+  border-radius: 2px;
+}
+.m-garden-cell--miss {
+  color: var(--muted);
+}
+
+/* ── Healthy (dense) ── */
+.scr--healthy .scr-body {
+  padding-top: 8px;
+}
+.h-date {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 0;
+}
+.h-greet {
+  font-family: var(--font-body);
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 10px;
+}
+.h-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+}
+.h-ring-card {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 6px;
+  align-items: center;
+}
+.ring {
+  width: 150px;
+  height: 150px;
+}
+.ring-num {
+  font-size: 40px;
+  font-weight: 700;
+  font-family: var(--font-body);
+  fill: var(--ink);
+}
+.ring-cap {
+  font-size: 11px;
+  font-family: var(--font-body);
+  fill: var(--muted);
+  font-weight: 600;
+}
+.h-segs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+.h-seg {
+  display: grid;
+  grid-template-columns: 10px 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 8px;
+  font-size: 12px;
+  line-height: 1.3;
+}
+.h-seg-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-top: 3px;
+  grid-row: 1 / 3;
+}
+.h-seg--day .h-seg-dot {
+  background: #e8a825;
+}
+.h-seg--evening .h-seg-dot {
+  background: #8b5fbf;
+}
+.h-seg--night .h-seg-dot {
+  background: #1f3a5f;
+}
+.h-seg-label {
+  font-weight: 700;
+}
+.h-seg-status {
+  font-weight: 600;
+  color: #4a453d;
+}
+.h-seg--evening .h-seg-status {
+  color: #8a4b12;
+}
+.h-seg-val {
+  color: var(--muted);
+  grid-column: 2;
+}
+.h-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.h-stat {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  font-size: 11px;
+  color: var(--muted);
+}
+.h-stat-val {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.h-stat-label {
+  font-weight: 600;
+  color: var(--ink);
+}
+.h-nudge p {
+  margin: 0;
+  font-size: 14px;
+}
+.h-nudge-title {
+  font-weight: 700;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+/* ── Glaucoma (sparse, large) ── */
+.scr--glaucoma {
+  --ts: 1.6;
+  background: #fff;
+}
+.scr--glaucoma .scr-body {
+  padding: 14px 20px 0;
+  background: #fff;
+}
+.g-greet {
+  font-family: var(--font-body);
+  font-size: 30px;
+  font-weight: 700;
+  margin: 0 0 14px;
+  color: #111;
+}
+.g-card {
+  border: 2px solid #4a453d;
+  border-radius: 16px;
+  padding: 16px 18px;
+  margin-bottom: 14px;
+  color: #111;
+}
+.g-big {
+  font-size: 58px;
+  line-height: 1;
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+.g-label {
+  font-size: 22px;
+  font-weight: 600;
+  margin: 4px 0 12px;
+}
+.g-bar {
+  height: 18px;
+  border-radius: 9px;
+  background: #e2ddd4;
+  overflow: hidden;
+}
+.g-bar-fill {
+  display: block;
+  height: 100%;
+  background: #1f3a5f;
+}
+.g-remaining {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 10px 0 0;
+}
+.g-row-label {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0 0 10px;
+}
+.g-btn {
+  display: block;
+  width: 100%;
+  min-height: 64px;
+  border-radius: 14px;
+  border: 0;
+  background: #1f3a5f;
+  color: #fff;
+  font-size: 22px;
+  font-weight: 700;
+}
+.g-btn.is-done {
+  background: #e4f0e3;
+  color: #1f4d1d;
+  border: 2px solid #3f7b3c;
+}
+.g-appt {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+}
+.g-card--appt {
+  border-color: #8a8578;
+}
+
+/* ── Depression (quiet) ── */
+.scr--depression {
+  background: #fbf9fd;
+}
+.d-top {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 4px;
+}
+.d-support {
+  font-size: 14px;
+  font-weight: 600;
+  color: #5b3a85;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.d-greet {
+  font-family: var(--font-body);
+  font-size: 30px;
+  font-weight: 600;
+  margin: 10px 0 18px;
+}
+.d-card {
+  background: #fff;
+  border: 1px solid #e9e2f2;
+  border-radius: 18px;
+  padding: 16px 18px;
+  margin-bottom: 14px;
+}
+.d-label {
+  font-size: 14px;
+  color: var(--muted);
+  margin: 0 0 6px;
+  font-weight: 600;
+}
+.d-mins {
+  font-size: 18px;
+  margin: 0 0 8px;
+  color: #4a453d;
+}
+.d-mins strong {
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.d-bar {
+  height: 10px;
+  border-radius: 5px;
+  background: #ece6f4;
+  overflow: hidden;
+}
+.d-bar-fill {
+  display: block;
+  height: 100%;
+  background: #8b5fbf;
+}
+.d-remaining {
+  font-size: 15px;
+  margin: 8px 0 12px;
+  color: #4a453d;
+}
+.d-primary {
+  display: block;
+  text-align: center;
+  padding: 14px;
+  border-radius: 14px;
+  background: #8b5fbf;
+  color: #fff;
+  font-weight: 600;
+  font-size: 17px;
+}
+.d-faces {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+  padding: 4px 4px 0;
+}
+.d-face {
+  display: inline-flex;
+  width: 52px;
+  height: 52px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+.d-tonight p {
+  margin: 0;
+  font-size: 16px;
+}
+
+/* ── Stroke (one task) ── */
+.scr--stroke {
+  --ts: 1.4;
+  background: #fff;
+}
+.scr--stroke .scr-body {
+  padding: 18px 22px 0;
+  display: flex;
+  flex-direction: column;
+}
+.s-greet {
+  font-family: var(--font-body);
+  font-size: 30px;
+  font-weight: 700;
+  margin: 0 0 12px;
+  color: #111;
+}
+.s-task {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+  padding-top: 12px;
+}
+.s-title {
+  font-size: 34px;
+  font-weight: 800;
+  margin: 12px 0 0;
+  color: #111;
+}
+.s-dur {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0 0 18px;
+  color: #333;
+}
+.s-start {
+  display: block;
+  width: 100%;
+  padding: 26px;
+  border-radius: 20px;
+  background: #0b6f75;
+  color: #fff;
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+.s-listen {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  padding: 12px 18px;
+  border-radius: 999px;
+  border: 2px solid #333;
+  font-size: 18px;
+  font-weight: 600;
+  min-height: 52px;
+}
+.s-listen--on {
+  background: #e6f2f3;
+  border-color: #0b6f75;
+}
+.s-share {
+  margin: 0;
+  padding: 12px 22px 28px;
+  font-size: 14px;
+  color: #4a453d;
+  text-align: center;
+}
+.s-done {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 10px;
+}
+.s-check {
+  font-size: 44px;
+  font-weight: 800;
+  color: #0b6f75;
+  margin: 0;
+}
+.s-done-title {
+  font-size: 26px;
+  font-weight: 700;
+  margin: 0;
+}
+.s-next {
+  font-size: 22px;
+  color: #333;
+  margin: 12px 0 0;
+  padding: 14px 24px;
+  border: 2px solid #333;
+  border-radius: 14px;
+  font-weight: 600;
+}
+/* motor support: very large targets, generous spacing, bottom reach */
+.scr--stroke-motor .s-task {
+  gap: 20px;
+  justify-content: flex-end;
+  padding-bottom: 24px;
+}
+.scr--stroke-motor .s-start {
+  padding: 40px 26px;
+  font-size: 34px;
+  border-radius: 28px;
+}
+.scr--stroke-motor .s-listen {
+  min-height: 72px;
+  padding: 18px 28px;
+  font-size: 22px;
+  width: 100%;
+  justify-content: center;
+  border-radius: 24px;
+}
+.scr--stroke-motor .s-greet {
+  font-size: 26px;
+}
+/* communication support */
+.s-task--comm {
+  gap: 20px;
+}
+.s-comm-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-align: left;
+}
+.s-instruction {
+  font-size: 34px;
+  font-weight: 800;
+  margin: 0;
+  line-height: 1.15;
+  color: #111;
+}
+.s-yesno {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  width: 100%;
+  margin-top: auto;
+  padding-bottom: 20px;
+}
+.s-yes,
+.s-later {
+  display: block;
+  text-align: center;
+  padding: 34px 10px;
+  border-radius: 22px;
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+.s-yes {
+  background: #0b6f75;
+  color: #fff;
+}
+.s-later {
+  background: #fff;
+  color: #111;
+  border: 3px solid #333;
+}
+
+/* caregiver */
+.scr--caregiver {
+  background: #fff;
+}
+.c-kicker {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  font-weight: 600;
+  margin: 8px 0 0;
+}
+.c-title {
+  font-family: var(--font-body);
+  font-size: 28px;
+  font-weight: 700;
+  margin: 2px 0 12px;
+}
+.c-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 14px;
+  display: grid;
+  gap: 8px;
+}
+.c-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  font-size: 17px;
+  font-weight: 600;
+}
+.c-mark {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  background: #e6f2f3;
+  color: #0b6f75;
+}
+.c-item--pending .c-mark {
+  background: #f0ede8;
+  color: var(--muted);
+}
+.c-state {
+  margin-left: auto;
+  font-size: 14px;
+  color: var(--muted);
+  font-weight: 500;
+}
+.c-card {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px;
+  margin-bottom: 14px;
+}
+.c-label {
+  margin: 0;
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 600;
+}
+.c-adh {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 700;
+}
+.c-msg {
+  display: block;
+  text-align: center;
+  padding: 14px;
+  border-radius: 14px;
+  border: 2px solid #0b6f75;
+  color: #0b6f75;
+  font-weight: 700;
+  font-size: 17px;
+}
+
+/* 8:14 mini screens */
+.scr--mini .mini-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 16px;
+  padding: 40px 20px;
+}
+.mini-time {
+  font-size: 34px;
+  font-weight: 700;
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+.mini-line {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+}
+.scr--myopia.scr--mini .mini-line {
+  font-family: var(--font-app-body);
+}
+.scr--glaucoma.scr--mini .mini-line,
+.scr--stroke.scr--mini .mini-line {
+  font-size: 26px;
+  font-weight: 800;
+}

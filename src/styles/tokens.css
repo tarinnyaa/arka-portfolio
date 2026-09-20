@@ -1,0 +1,88 @@
+/* ARKA portfolio — design tokens (spec §3) */
+
+/* Metric-matched local fallbacks so text laid out before the web fonts arrive
+   occupies the same box (removes the font-swap layout shift). Ratios measured
+   headlessly in Chrome: Fraunces 700 vs Georgia bold, Inter 400 vs Arial. */
+@font-face {
+  font-family: "Fraunces Fallback";
+  src: local("Georgia Bold"), local("Georgia");
+  size-adjust: 96.6%;
+  ascent-override: 101.5%;
+  descent-override: 26.9%;
+}
+@font-face {
+  font-family: "Inter Fallback";
+  src: local("Arial"), local("Helvetica");
+  size-adjust: 107.5%;
+  ascent-override: 90.2%;
+  descent-override: 22.3%;
+}
+
+:root {
+  /* Base palette */
+  --cream: #faf8f5;
+  --ink: #2c2825;
+  --sage: #6ba368;
+  --amber: #e8a825;
+  --terracotta: #d97742;
+  /* Spec muted is #6E695F. Muted *text* is one step darker so it holds 4.5:1
+     on the warmest ambient stop and over the aperture tint (checked against
+     every ambient/aperture blend). The spec value remains for non-text uses. */
+  --muted-fill: #6e695f;
+  --muted: #5a554c;
+  --line: #e6e1d8;
+  --card: #ffffff;
+  /* Text-safe variants of the accent hues: the brand sage/amber/terracotta
+     are fills, not type colours — these pass 4.5:1 on every page background. */
+  --sage-text: #2a6128;
+  --amber-text: #6f4b03;
+  --terracotta-text: #8f3a14;
+
+  /* Per-page accents (used sparingly) */
+  --accent-healthy: #5b9bd5;
+  --accent-myopia: #6ba368;
+  --accent-glaucoma: #1f3a5f;
+  --accent-depression: #8b5fbf;
+  --accent-stroke: #0b6f75;
+  --accent: var(--sage);
+
+  /* Dark section tones (hero + closing) */
+  --predawn: #1b2540;
+  --dusk: #172036;
+  --on-dark: #f3efe8;
+  --on-dark-muted: #c7c2b8;
+
+  /* Circadian ambient — interpolated on scroll by lib/ambient.ts */
+  --ambient-bg: #f6ebdd;
+  --aperture-tint: #e8a825;
+  --aperture-alpha: 0.22;
+
+  /* Text */
+  --font-display: "Fraunces", "Fraunces Fallback", Georgia, serif;
+  --font-body: "Inter", "Inter Fallback", system-ui, -apple-system, sans-serif;
+  --font-app-display: "Luckiest Guy", "Baloo 2", system-ui, sans-serif;
+  --font-app-body: "Baloo 2", system-ui, sans-serif;
+
+  /* Layout */
+  --max: 1200px;
+  --gutter: 24px;
+  --radius: 20px;
+  --radius-sm: 12px;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --nav-h: 64px;
+
+  /* Motion */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1); /* ≈ power2.out */
+  --dur: 400ms;
+  --dur-fast: 250ms;
+
+  /* Accessible focus */
+  --focus: 0 0 0 3px var(--cream), 0 0 0 6px var(--accent-glaucoma);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur: 0ms;
+    --dur-fast: 0ms;
+  }
+}
