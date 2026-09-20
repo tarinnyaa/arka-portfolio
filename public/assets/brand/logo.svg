@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="600" viewBox="0 0 1080 600">
+  <defs>
+    <clipPath id="halfSun">
+      <rect x="408" y="228" width="264" height="132"/>
+    </clipPath>
+  </defs>
+  <line x1="540" y1="342" x2="360" y2="30" stroke="#D4A043" stroke-width="6" stroke-opacity="0.2" stroke-linecap="round"/>
+  <line x1="540" y1="342" x2="540" y2="0" stroke="#D4A043" stroke-width="6" stroke-opacity="0.3" stroke-linecap="round"/>
+  <line x1="540" y1="342" x2="720" y2="30" stroke="#D4A043" stroke-width="6" stroke-opacity="0.2" stroke-linecap="round"/>
+  <line x1="210" y1="360" x2="870" y2="360" stroke="#D4A043" stroke-width="9" stroke-opacity="0.35" stroke-linecap="round"/>
+  <circle cx="540" cy="360" r="120" fill="#D4A043" clip-path="url(#halfSun)"/>
+  <text x="540" y="552" fill="#2D2A26" text-anchor="middle" font-family="system-ui, -apple-system, BlinkMacSystemFont, sans-serif" font-size="168" font-weight="300" letter-spacing="60">ARKA</text>
+</svg>
