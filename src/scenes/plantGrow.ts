@@ -31,7 +31,7 @@ export function plantScene() {
   let rafs: number[] = [];
   function createStage() {
     const { el: screen, plant } = myopiaPlantScreen({ fraction: 0 });
-    const phone = phoneFrame(screen, { scale: 0.62, label: "The deployed Plant tab" });
+    const phone = phoneFrame(screen, { scale: 0.48, label: "The deployed Plant tab" });
     const steps = C.thresholds.map((t) =>
       h(
         "div",

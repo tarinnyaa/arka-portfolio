@@ -21,7 +21,6 @@ export default function stroke(): Page {
     title: C.header.title,
     cohort: C.header.cohort,
     status: C.header.status,
-    ribbonLabel: C.header.ribbonLabel,
     lede: C.header.lede,
     goals: C.goals,
   });
@@ -35,7 +34,7 @@ export default function stroke(): Page {
   // Patient home is one task — with a completion toggle
   const homeSlot = h("div", { class: "phone-center" });
   let done = false;
-  const renderHome = () => homeSlot.replaceChildren(phoneFrame(strokeHome({ done }), { scale: 0.62, label: done ? "Done. Morning light finished. Next: Rest." : "Good morning. Morning light, 30 minutes, START, Listen." }));
+  const renderHome = () => homeSlot.replaceChildren(phoneFrame(strokeHome({ done }), { scale: 0.52, label: done ? "Done. Morning light finished. Next: Rest." : "Good morning. Morning light, 30 minutes, START, Listen." }));
   renderHome();
   const doneBtn = h("button", { type: "button", class: "btn btn--ghost", "aria-pressed": "false", onclick: () => { done = !done; doneBtn.setAttribute("aria-pressed", String(done)); doneBtn.textContent = done ? C.home.reset : C.home.simulate; renderHome(); } }, C.home.simulate);
   const home = h(
@@ -73,7 +72,7 @@ export default function stroke(): Page {
     h("div", { class: "wrap decision-row" }, h("div", null, configCard(C.config), rationaleDrawer(C.rationale)), designDecision(C.decision)),
   );
 
-  const el = h("div", { class: "page page--stroke", style: "--accent:var(--accent-stroke)" }, header, loop, home, modes.el, two, acto.el, anchor.el, config, closingBand("stroke", C.closing));
+  const el = h("div", { class: "page page--stroke", style: "--accent:var(--accent-stroke)" }, header, loop, home, modes.el, two, acto.el, anchor.el, config, closingBand("stroke", C.closing, { designed: true }));
   return {
     title: C.title,
     el,
@@ -95,7 +94,7 @@ function modesScene() {
   function setMode(mode: StrokeMode) {
     const m = C.items.find((x) => x.id === mode)!;
     buttons.forEach((b, i) => b.setAttribute("aria-pressed", String(C.items[i].id === mode)));
-    slot.replaceChildren(phoneFrame(strokeHome({ mode }), { scale: 0.62, label: m.describe }));
+    slot.replaceChildren(phoneFrame(strokeHome({ mode }), { scale: 0.52, label: m.describe }));
     desc.replaceChildren(h("p", null, m.describe), h("ul", { class: "mode-points" }, ...m.points.map((p) => h("li", null, p))));
   }
   const el = h(

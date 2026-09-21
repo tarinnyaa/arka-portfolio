@@ -1,9 +1,8 @@
-// Demographic page header: illustration, title, cohort, StatusRibbon, light
-// ribbon, lede and GoalChips.
+// Demographic page header: illustration, title with status tag, lede and goal spec.
 import { h } from "../lib/dom";
+import type { RibbonKind } from "./lightRibbon";
 import { img } from "./assets";
-import { lightRibbon, type RibbonKind } from "./lightRibbon";
-import { goalChips, statusRibbon } from "./ui";
+import { goalSpec, statusTag, type GoalRow } from "./ui";
 
 export function pageHeader(opts: {
   kind: RibbonKind;
@@ -13,9 +12,8 @@ export function pageHeader(opts: {
   title: string;
   cohort: string;
   status: "live" | "designed";
-  ribbonLabel: string;
   lede: string;
-  goals: { text: string; refs: string[] }[];
+  goals: GoalRow[];
 }): HTMLElement {
   return h(
     "header",
@@ -27,11 +25,14 @@ export function pageHeader(opts: {
       h(
         "div",
         { class: "page-header-text" },
-        statusRibbon(opts.status),
-        h("h1", null, opts.title, h("span", { class: "cohort" }, " · ", opts.cohort)),
+        h(
+          "h1",
+          { class: "page-title-line" },
+          h("span", { class: "page-title" }, opts.title),
+          h("span", { class: "page-title-meta" }, h("span", { class: "cohort" }, opts.cohort), statusTag(opts.status)),
+        ),
         h("p", { class: "lede" }, opts.lede),
-        h("div", { class: "ribbon-wrap" }, lightRibbon(opts.kind, opts.ribbonLabel, opts.accent)),
-        goalChips(opts.goals),
+        goalSpec(opts.goals),
       ),
       h(
         "div",

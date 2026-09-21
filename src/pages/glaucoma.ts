@@ -21,7 +21,6 @@ export default function glaucoma(): Page {
     title: C.header.title,
     cohort: C.header.cohort,
     status: C.header.status,
-    ribbonLabel: C.header.ribbonLabel,
     lede: C.header.lede,
     goals: C.goals,
   });
@@ -33,7 +32,7 @@ export default function glaucoma(): Page {
   );
 
   // Home is three things
-  const phone = phoneFrame(glaucomaHome(), { scale: 0.62, label: "Glaucoma home: 84 min bright light today, 36 min remaining, eye drops at 8:00 PM with a Mark as done button, next appointment 12 Oct 10:30 AM." });
+  const phone = phoneFrame(glaucomaHome(), { scale: 0.52, label: "Glaucoma home: 84 min bright light today, 36 min remaining, eye drops at 8:00 PM with a Mark as done button, next appointment 12 Oct 10:30 AM." });
   const co = callouts(phone, [
     { text: "One large number, a plain bar, the remainder in words.", at: [0.5, 0.22], side: "right", y: 0.12 },
     { text: "A 64-pixel button for the evening drops.", at: [0.5, 0.52], side: "left", y: 0.42 },
@@ -75,7 +74,7 @@ export default function glaucoma(): Page {
     h("div", { class: "wrap decision-row" }, h("div", null, configCard(C.config), rationaleDrawer(C.rationale)), designDecision(C.decision)),
   );
 
-  const el = h("div", { class: "page page--glaucoma", style: "--accent:var(--accent-glaucoma)" }, header, why, home, slider.el, day, config, closingBand("glaucoma", C.closing));
+  const el = h("div", { class: "page page--glaucoma", style: "--accent:var(--accent-glaucoma)" }, header, why, home, slider.el, day, config, closingBand("glaucoma", C.closing, { designed: true }));
   return {
     title: C.title,
     el,
@@ -117,7 +116,7 @@ function adaptiveSlider() {
     ),
     h("div", { class: "adapt-tabs" }, ...["Home", "Insights", "Inbox", "Lumi"].map((t) => h("span", null, h("span", { class: "mo-tab-dot", style: "width:18px;height:18px;border-radius:6px;background:currentColor;opacity:.35;display:block" }), h("span", { class: "ptab-label" }, t)))),
   );
-  const phone = phoneFrame(screen, { scale: 0.62, label: "A phone screen adapting from the Healthy home to the Glaucoma home" });
+  const phone = phoneFrame(screen, { scale: 0.52, label: "A phone screen adapting from the Healthy home to the Glaucoma home" });
   const range = h("input", { type: "range", min: "0", max: "100", value: "0", class: "adapt-range", id: "adapt-range", "aria-label": C.label, "aria-valuetext": C.left }) as HTMLInputElement;
   const callList = h("ul", { class: "adapt-callouts" }, ...C.callouts.map((c) => h("li", null, c.text)));
   const items = Array.from(callList.children) as HTMLElement[];

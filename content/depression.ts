@@ -12,8 +12,8 @@ export const DEPRESSION = {
     lede: "The page's own pace changes here. Fewer elements at once. More room. Nothing celebrates.",
   },
   goals: [
-    { text: "Morning bright light routine", refs: ["lam2015"] },
-    { text: "Evening light reduction and stable sleep timing", refs: ["dealmeida2024"] },
+    { value: "Morning", label: "bright light routine", refs: ["lam2015"] },
+    { value: "Evening", label: "light reduction and stable sleep timing", refs: ["dealmeida2024"] },
   ],
   loop: {
     kicker: "The loop",

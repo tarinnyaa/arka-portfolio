@@ -57,9 +57,10 @@ export const FOOTER = {
 
 export const STATUS = {
   live: "Live study",
-  designed: "Proposed configuration",
-  liveHint: "This configuration has been running with participants since 2026.",
-  designedHint: "This configuration is designed and awaiting a study. Nothing here is validated.",
+  designed: "Designed",
+  liveTooltip: "Running with participants since 2026.",
+  designedTooltip: "Designed configuration. Not yet studied.",
+  designedFooter: "This configuration is designed and has not been studied.",
 };
 
 export const CHART = {

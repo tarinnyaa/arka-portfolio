@@ -1,11 +1,10 @@
-// Light reveal hero. Near-dark canvas: wordmark, subline and a small sun at a
-// horizon line. Text is legible by default at moderate contrast; a wide
-// aperture of light follows the cursor and brightens whatever it covers to
-// full contrast. On load the sun rises once and the product shot follows.
-// Reduced motion or no fine pointer: fully lit immediately.
+// Light reveal hero. Near-dark canvas: wordmark, subline and a sun at a
+// horizon line. The headline stays at full contrast at all times. A soft
+// amber aperture follows the cursor behind the type. On load the sun rises
+// once and the product shot follows. Reduced motion: fully lit immediately.
 import { ABOUT } from "@content/about";
 import { ASSETS } from "@content/shared";
-import { img, labLogos } from "../components/assets";
+import { img } from "../components/assets";
 import { h, s } from "../lib/dom";
 import { later, reducedMotion, tween } from "../lib/motion";
 
@@ -36,45 +35,28 @@ export function heroScene() {
     s("line", { x1: 0, y1: 300, x2: 1200, y2: 300, stroke: "var(--amber-bright)", "stroke-width": 2, "stroke-opacity": 0.6 }),
   );
 
-  // Two copies of the text: a dim base layer, and a bright layer masked to
-  // the spotlight. Both are the same DOM shape so nothing shifts.
-  const textBlock = () =>
-    h(
-      "div",
-      { class: "hero-text" },
-      h("p", { class: "hero-wordmark-line", "aria-hidden": "true" }, C.wordmark),
-      h("p", { class: "hero-subline" }, C.subline),
-      h(
-        "div",
-        { class: "hero-project" },
-        h("span", { class: "hero-project-label" }, C.projectOf),
-        h("div", { class: "hero-logo-card" }, labLogos(30, { link: true })),
-      ),
-    );
-  const base = textBlock();
-  const bright = textBlock();
-  bright.classList.add("hero-text--bright");
-  bright.setAttribute("aria-hidden", "true");
-  // The bright copy must not add focusable duplicates.
-  bright.querySelectorAll("a").forEach((a) => a.setAttribute("tabindex", "-1"));
+  const text = h(
+    "div",
+    { class: "hero-text" },
+    h("p", { class: "hero-wordmark-line", "aria-hidden": "true" }, C.wordmark),
+    h("p", { class: "hero-subline" }, C.subline),
+  );
 
   const shot = h("div", { class: "hero-shot" }, img(ASSETS.heroEcosystem, C.productShotAlt, { w: "100%", h: "auto", eager: true }));
 
   const el = h(
     "section",
-    { class: "hero on-dark", "aria-label": "Introduction" },
+    { class: "hero on-dark is-lit", "aria-label": "Introduction" },
     h("div", { class: "hero-aperture", "aria-hidden": "true" }),
     horizonSvg,
-    h("div", { class: "wrap hero-inner" }, h("h1", { class: "visually-hidden" }, C.wordmark), base, bright),
+    h("div", { class: "wrap hero-inner" }, h("h1", { class: "visually-hidden" }, C.wordmark), text),
     h("div", { class: "wrap hero-shot-wrap" }, shot),
   );
 
   const pointerFine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
   function mount() {
-    if (reducedMotion() || !pointerFine) {
-      el.classList.add("is-lit");
-    } else {
+    if (!reducedMotion() && pointerFine) {
       const move = (x: number, y: number) => {
         const r = el.getBoundingClientRect();
         el.style.setProperty("--mx", `${x - r.left}px`);
@@ -83,7 +65,6 @@ export function heroScene() {
       };
       el.addEventListener("pointermove", (e) => move(e.clientX, e.clientY));
       el.addEventListener("pointerleave", () => el.classList.remove("has-pointer"));
-      el.addEventListener("focusin", () => el.classList.add("is-lit"));
     }
 
     const setP = (p: number) => {
@@ -97,8 +78,6 @@ export function heroScene() {
       setP(1);
       return;
     }
-    // Not scroll driven: the sun rises once, on load, and the product shot
-    // follows. Normal document flow throughout.
     setP(0);
     later(() => tween(2200, setP), 400);
   }

@@ -11,9 +11,9 @@ export const HEALTHY = {
     lede: "Deliberately the densest interface on the platform: the visual opposite of Glaucoma and Stroke.",
   },
   goals: [
-    { text: "Day ≥ 250 mEDI", refs: ["brown2022"] },
-    { text: "Evening ≤ 10 mEDI (3 h before bed)", refs: ["brown2022"] },
-    { text: "Night ≤ 1 mEDI", refs: ["brown2022"] },
+    { value: "≥ 250 mEDI", label: "daytime", refs: ["brown2022"] },
+    { value: "≤ 10 mEDI", label: "evening, 3 hours before bed", refs: ["brown2022"] },
+    { value: "≤ 1 mEDI", label: "night", refs: ["brown2022"] },
   ],
   reality: {
     kicker: "Targets vs reality",

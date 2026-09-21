@@ -26,7 +26,6 @@ export default function myopia(): Page {
     title: C.header.title,
     cohort: C.header.cohort,
     status: C.header.status,
-    ribbonLabel: C.header.ribbonLabel,
     lede: C.header.lede,
     goals: C.goals,
   });
@@ -39,7 +38,7 @@ export default function myopia(): Page {
   );
 
   // Parent's view
-  const parentPhone = phoneFrame(myopiaHome(), { scale: 0.62, label: "The deployed Home tab: sync banner, gauge at 78 of 120, coaching line." });
+  const parentPhone = phoneFrame(myopiaHome(), { scale: 0.52, label: "The deployed Home tab: sync banner, gauge at 78 of 120, coaching line." });
   const parentCallouts = callouts(parentPhone, [
     { text: C.parent.callouts[0], at: [0.5, 0.12], side: "right", y: 0.06 },
     { text: C.parent.callouts[1], at: [0.5, 0.36], side: "left", y: 0.3 },
@@ -75,9 +74,9 @@ export default function myopia(): Page {
         h(
           "div",
           { class: "card card--flat" },
-          h("h3", null, C.arms.comparison.title),
-          h("ul", null, ...C.arms.comparison.items.map((i) => h("li", null, i))),
-          h("div", { class: "phone-center", style: "margin-top:16px" }, phoneFrame(myopiaHome({ comparison: true }), { scale: 0.42, label: "Comparison arm home screen: minutes only" })),
+          h("h3", null, C.arms.placebo.title),
+          h("ul", null, ...C.arms.placebo.items.map((i) => h("li", null, i))),
+          h("div", { class: "phone-center", style: "margin-top:16px" }, phoneFrame(myopiaHome({ placebo: true }), { scale: 0.42, label: "Placebo arm home screen: minutes only" })),
         ),
       ),
     ),

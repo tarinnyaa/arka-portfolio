@@ -5,7 +5,7 @@ import { h, id, s } from "../lib/dom";
 import { onEnter, reducedMotion } from "../lib/motion";
 import { href, type RouteKey } from "../lib/router";
 import { bottomNav } from "./chrome";
-import { citeInline, evidence } from "./evidence";
+import { evidence } from "./evidence";
 import { arrowIcon, checkIcon, crossIcon, sunIcon } from "./icons";
 
 export function sectionHead(kicker: string | null, heading: string, body?: string | null, level: 2 | 3 = 2): HTMLElement {
@@ -19,22 +19,27 @@ export function sectionHead(kicker: string | null, heading: string, body?: strin
   );
 }
 
-export function goalChips(goals: { text: string; refs: string[] }[]): HTMLElement {
+export type GoalRow = { value: string; label: string; refs: string[] };
+
+export function goalSpec(goals: GoalRow[]): HTMLElement {
   return h(
-    "ul",
-    { class: "goal-chips", role: "list", "aria-label": "Research targets" },
-    ...goals.map((g) => h("li", { class: "goal-chip" }, h("span", null, g.text), citeInline(...g.refs))),
+    "dl",
+    { class: "goal-spec", "aria-label": "Research targets" },
+    ...goals.flatMap((g) => [
+      h("div", { class: "goal-row" }, h("dt", null, g.value), h("dd", null, g.label, g.refs.length ? evidence(...g.refs) : null)),
+    ]),
   );
 }
 
-export function statusRibbon(status: "live" | "designed"): HTMLElement {
+export function statusTag(status: "live" | "designed"): HTMLElement {
   const live = status === "live";
+  const tip = live ? STATUS.liveTooltip : STATUS.designedTooltip;
   return h(
-    "p",
-    { class: `status-ribbon status-ribbon--${status}` },
+    "span",
+    { class: `status-tag status-tag--${status}`, tabindex: "0" },
     h("span", { class: "status-dot", "aria-hidden": "true" }),
-    h("strong", null, live ? STATUS.live : STATUS.designed),
-    h("span", { class: "status-hint" }, live ? STATUS.liveHint : STATUS.designedHint),
+    h("span", { class: "status-tag-label" }, live ? STATUS.live : STATUS.designed),
+    h("span", { class: "status-tooltip", role: "tooltip" }, tip),
   );
 }
 
@@ -305,7 +310,7 @@ export function rationaleDrawer(r: { button: string; title: string; paragraphs: 
 /** Dark closing band at the foot of every demographic page, followed by the
  *  repeated six tab navigation so a reader can move on without scrolling
  *  back to the top. */
-export function closingBand(routeKey: string, line: string): HTMLElement {
+export function closingBand(routeKey: string, line: string, opts: { designed?: boolean } = {}): HTMLElement {
   const next = NEXT_LINKS[routeKey];
   const band = h(
     "section",
@@ -318,7 +323,8 @@ export function closingBand(routeKey: string, line: string): HTMLElement {
       next ? h("a", { href: href(next.path), "data-link": true, class: "btn btn--amber" }, next.label, arrowIcon(16)) : null,
     ),
   );
-  return h("div", { class: "page-end" }, band, bottomNav(routeKey as RouteKey));
+  const note = opts.designed ? h("p", { class: "designed-note wrap" }, STATUS.designedFooter) : null;
+  return h("div", { class: "page-end" }, band, note, bottomNav(routeKey as RouteKey));
 }
 
 /** Proposed tag — untested design hypothesis. */

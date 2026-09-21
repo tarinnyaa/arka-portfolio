@@ -100,7 +100,7 @@ export function myopiaGauge(minutes: number, target = 120): SVGSVGElement {
   return svg;
 }
 
-export function myopiaHome(opts: { minutes?: number; target?: number; comparison?: boolean } = {}): HTMLElement {
+export function myopiaHome(opts: { minutes?: number; target?: number; placebo?: boolean } = {}): HTMLElement {
   const minutes = opts.minutes ?? 78;
   const target = opts.target ?? 120;
   const remaining = target - minutes;
@@ -115,9 +115,8 @@ export function myopiaHome(opts: { minutes?: number; target?: number; comparison
       h("h2", { class: "m-title" }, "Summary"),
       h("p", { class: "m-sub" }, "Progress in daily light exposure"),
       h("p", { class: "m-asof" }, "Watch data as of 18 Sep 2026, 2:22 PM"),
-      // Comparison arm (deployed "placebo" home): raw minutes only — no gauge,
-      // no target, no coaching line.
-      opts.comparison
+      // Placebo arm: raw minutes only — no gauge, no target, no coaching line.
+      opts.placebo
         ? null
         : h(
             "div",
@@ -131,14 +130,14 @@ export function myopiaHome(opts: { minutes?: number; target?: number; comparison
         { class: "m-card m-coach" },
         h("p", { class: "m-coach-lead" }, "As of 18 Sep 2026, 2:22 PM, your child's outdoor time is:"),
         h("p", { class: "m-coach-big" }, `${minutes} minutes`),
-        opts.comparison
+        opts.placebo
           ? null
           : h("p", { class: "m-coach-line" }, goal ? "Goal reached!" : `Take your child outside for ${remaining} minutes to hit today's goal of ${target} minutes!`),
-        opts.comparison ? null : h("p", { class: "m-coach-sub" }, `For optimal myopia protection aim for ${target} minutes outdoors per day.`),
+        opts.placebo ? null : h("p", { class: "m-coach-sub" }, `For optimal myopia protection aim for ${target} minutes outdoors per day.`),
       ),
       h("div", { class: "m-card m-wear" }, h("p", { class: "m-wear-title" }, "Monthly Wear Time (days)")),
     ),
-    tabBar(opts.comparison ? ["Home", "Insights", "Inbox"] : ["Home", "Insights", "Plant", "Inbox"], 0, { dark: true }),
+    tabBar(opts.placebo ? ["Home", "Insights", "Inbox"] : ["Home", "Insights", "Plant", "Inbox"], 0, { dark: true }),
   );
 }
 
@@ -438,7 +437,7 @@ export function participantScreen(cfg: ScreenConfig): HTMLElement {
         }
         return el;
       }
-      return myopiaHome({ comparison: true });
+      return myopiaHome({ placebo: true });
     }
     case "healthy":
       return healthyHome({ lumi: cfg.lumi, dense: !cfg.singleTask });

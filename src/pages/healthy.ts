@@ -21,7 +21,6 @@ export default function healthy(): Page {
     title: C.header.title,
     cohort: C.header.cohort,
     status: C.header.status,
-    ribbonLabel: C.header.ribbonLabel,
     lede: C.header.lede,
     goals: C.goals,
   });
@@ -56,7 +55,7 @@ export default function healthy(): Page {
 
   // Score
   const screen = healthyHome();
-  const phone = phoneFrame(screen, { scale: 0.62, label: "Healthy home: Light Balance Score 71 with day, evening and night arcs." });
+  const phone = phoneFrame(screen, { scale: 0.52, label: "Healthy home: Light Balance Score 71 with day, evening and night arcs." });
   const co = callouts(phone, [
     { text: C.score.callouts[0], at: [0.28, 0.24], side: "left", y: 0.12 },
     { text: C.score.callouts[1], at: [0.72, 0.28], side: "right", y: 0.26 },
@@ -117,7 +116,7 @@ export default function healthy(): Page {
     h("div", { class: "wrap decision-row" }, h("div", null, configCard(C.config), rationaleDrawer(C.rationale)), designDecision(C.decision)),
   );
 
-  const el = h("div", { class: "page page--healthy", style: "--accent:var(--accent-healthy)" }, header, reality, score, day.el, lumi, nudges, config, closingBand("healthy", C.closing));
+  const el = h("div", { class: "page page--healthy", style: "--accent:var(--accent-healthy)" }, header, reality, score, day.el, lumi, nudges, config, closingBand("healthy", C.closing, { designed: true }));
 
   return {
     title: C.title,

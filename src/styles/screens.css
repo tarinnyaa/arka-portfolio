@@ -156,9 +156,13 @@
   font-size: 17px;
   margin: 0 0 14px;
 }
+.scr--plant .scr-body {
+  overflow: visible;
+}
 .mp-card {
-  padding: 18px 12px 16px;
+  padding: 28px 12px 16px;
   border-radius: 22px;
+  overflow: visible;
 }
 .plant {
   display: flex;
@@ -217,6 +221,20 @@
   display: flex;
   gap: 8px;
   justify-content: space-between;
+}
+.m-garden-row--year {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 6px 4px;
+}
+.m-garden-row--year .m-garden-cell {
+  font-size: 10px;
+}
+.m-garden-cell--empty .m-garden-slot {
+  width: 22px;
+  height: 28px;
+  border: 1.5px dashed #c8c2b8;
+  border-radius: 8px;
 }
 .m-garden-cell {
   display: inline-flex;

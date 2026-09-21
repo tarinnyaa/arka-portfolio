@@ -44,7 +44,7 @@ export function configsScene() {
       return scr;
     });
     const stack = h("div", { class: "cf-screens" }, ...screens);
-    const phone = phoneFrame(stack, { scale: 0.62, label: "The ARKA participant phone. The interface inside changes with the configuration." });
+    const phone = phoneFrame(stack, { scale: 0.5, label: "The ARKA participant phone. The interface inside changes with the configuration." });
     const density = h("p", { class: "cf-density mono-label" }, h("span", null, `${C.densityLabel}: `), h("strong", { class: "cf-density-v" }, C.states[0].density));
 
     // One text region, five panels in the same box.

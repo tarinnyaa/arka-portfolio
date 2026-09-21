@@ -31,36 +31,6 @@
   z-index: var(--z-content);
   text-align: center;
   padding: 18vh 0 6vh;
-  display: grid;
-}
-/* Two identical text blocks share one grid cell: dim base, bright masked copy. */
-.hero-text {
-  grid-area: 1 / 1;
-}
-.hero-text--bright {
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 400ms var(--ease);
-}
-.hero.has-pointer .hero-text--bright {
-  opacity: 1;
-  -webkit-mask-image: radial-gradient(circle var(--aperture-r) at var(--mx) var(--my), #000 0 45%, transparent 100%);
-  mask-image: radial-gradient(circle var(--aperture-r) at var(--mx) var(--my), #000 0 45%, transparent 100%);
-}
-.hero.is-lit .hero-text--bright {
-  opacity: 1;
-  -webkit-mask-image: none;
-  mask-image: none;
-}
-.hero-text:not(.hero-text--bright) .hero-wordmark-line,
-.hero-text:not(.hero-text--bright) .hero-subline {
-  color: rgba(250, 248, 245, 0.62);
-}
-.hero-text:not(.hero-text--bright) .hero-project-label {
-  color: rgba(250, 248, 245, 0.5);
-}
-.hero-text:not(.hero-text--bright) .hero-logo-card {
-  opacity: 0.72;
 }
 .hero-wordmark-line {
   font-family: var(--font-body);
@@ -96,24 +66,6 @@
   margin: 0 auto 28px;
   max-width: 30ch;
   color: var(--on-dark);
-}
-.hero-project {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-}
-.hero-project-label {
-  font-size: 0.78rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--on-dark-muted);
-}
-.hero-logo-card {
-  background: #fff;
-  border-radius: var(--r-card);
-  padding: 10px 18px;
-  display: inline-flex;
 }
 .hero-shot-wrap {
   position: relative;
@@ -370,35 +322,47 @@ html.reduce-motion .sen-phone-frame {
 .mm-header {
   padding-bottom: clamp(16px, 3vw, 32px);
 }
+.mm-section .seq-viewport {
+  grid-template-rows: auto 1fr;
+}
 .mm-rail {
-  position: absolute;
-  top: clamp(20px, 4vh, 40px);
-  right: var(--gutter);
+  position: relative;
+  top: auto;
+  right: auto;
   display: flex;
-  gap: 22px;
+  justify-content: center;
+  justify-self: center;
+  gap: clamp(22px, 4vw, 48px);
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding: clamp(18px, 3vh, 32px) 0 4px;
   z-index: var(--z-content);
 }
 .mm-rail li {
   display: inline-flex;
-  gap: 6px;
+  gap: 8px;
   align-items: baseline;
-  font-size: 0.72rem;
-  letter-spacing: 0.12em;
+  font-size: clamp(1rem, 2vw, 1.4rem);
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--muted-fill);
-  opacity: 0.55;
-  transition: opacity 300ms var(--ease), color 300ms var(--ease);
+  opacity: 0.4;
+  padding-bottom: 6px;
+  border-bottom: 3px solid transparent;
+  transition: opacity 300ms var(--ease), color 300ms var(--ease), border-color 300ms var(--ease);
 }
 .mm-rail li.is-on {
   opacity: 1;
   color: var(--ink);
+  border-bottom-color: var(--amber);
 }
 .mm-rail li.is-on .mm-rail-n {
   color: var(--amber);
+}
+.mm-rail-n {
+  font-size: 0.7em;
+  font-weight: 700;
 }
 .mm-stage {
   display: grid;
@@ -534,27 +498,19 @@ html.reduce-motion .sen-phone-frame {
   pointer-events: none;
 }
 .mm-big {
-  font-size: clamp(5rem, 12vw, 9rem);
-  margin: 0;
+  font-size: clamp(4.8rem, 11vw, 8rem);
+  margin: -0.55em 0 0;
   color: var(--ink);
-}
-.mm-big-label {
-  font-size: 1.05rem;
-  color: var(--muted);
-  margin: 0;
+  line-height: 1;
 }
 .mm-gauge {
-  width: clamp(180px, 22vw, 260px);
-  margin-top: 8px;
+  width: clamp(240px, 32vw, 360px);
 }
 .mm-gauge-svg {
   width: 100%;
   height: auto;
   display: block;
   transform-origin: 50% 100%;
-}
-.mm-ratio {
-  color: var(--ink);
 }
 /* L4 */
 .mm-l4 {
@@ -568,15 +524,16 @@ html.reduce-motion .sen-phone-frame {
 }
 .mm-metric-slot {
   width: 1px;
-  height: clamp(110px, 15vh, 132px);
+  height: 0;
 }
 .mm-plant {
   display: grid;
   place-items: center;
 }
 .mm-plant .plant-svg {
-  height: clamp(160px, 28vh, 260px);
+  height: clamp(220px, 38vh, 340px);
   width: auto;
+  overflow: visible;
   display: block;
 }
 .mm-bloom {
@@ -1804,6 +1761,7 @@ html.reduce-motion .sen-phone-frame {
 .phone-center {
   display: flex;
   justify-content: center;
+  padding-block: 24px;
 }
 .timeline {
   list-style: none;
@@ -1888,6 +1846,12 @@ html.reduce-motion .sen-phone-frame {
 .plant-stage {
   display: flex;
   align-items: center;
+  justify-content: center;
+  padding-block: 16px;
+}
+.plant-phone {
+  display: flex;
+  justify-content: center;
 }
 .seq-stack-item .plant-stage {
   min-height: auto;
@@ -1946,161 +1910,183 @@ html.reduce-motion .sen-phone-frame {
 }
 
 /* Myopia garden */
-.garden-body {
-  padding-block: 24px;
-}
-.garden-grid {
+.garden-stage {
+  position: relative;
   display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 56px;
+  grid-template-rows: 1fr auto;
+  align-items: center;
+  padding-block: 8px 12px;
+}
+.garden-pin {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: clamp(28px, 5vw, 72px);
   align-items: center;
 }
-.month-strip {
+.garden-phone {
   display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
+  justify-content: center;
 }
-.month-strip span {
-  padding: 6px 10px;
-  border-radius: 999px;
-  border: 1px solid var(--line);
-  font-size: 0.85rem;
-  font-weight: 600;
+.garden-cal {
+  display: flex;
+  justify-content: center;
+}
+.cal-book {
+  position: relative;
+  width: min(360px, 34vw);
+  aspect-ratio: 3 / 4;
+  perspective: 1600px;
+  background: #e7e0d4;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+.cal-leaf {
+  position: absolute;
+  inset: 6px 8px 8px 14px;
+  background: #fff;
+  border: 1px solid #e4ddd2;
+  border-radius: 6px;
+  box-shadow: 10px 8px 0 -6px #f3eee6;
+  transform-origin: left center;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.cal-leaf--under {
+  z-index: 1;
+}
+.cal-leaf--flip {
+  z-index: 2;
+}
+.cal-page {
+  height: 100%;
+  padding: 28px 24px 22px;
+  display: grid;
+  grid-template-rows: auto auto auto 1fr;
+  gap: 8px;
+}
+.cal-year {
+  margin: 0;
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
   color: var(--muted);
 }
-.month-strip span.is-on {
-  background: var(--ink);
-  color: var(--cream);
-  border-color: var(--ink);
+.cal-month {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.4vw, 2.8rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1;
 }
-.month-strip span.is-past {
+.cal-week,
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  text-align: center;
+}
+.cal-week {
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  font-weight: 600;
+}
+.cal-day {
+  min-height: 28px;
+  display: grid;
+  place-items: center;
+  font-size: 0.82rem;
+  font-variant-numeric: tabular-nums;
+}
+.cal-day.is-empty {
+  visibility: hidden;
+}
+.cal-day.is-bloom {
+  color: transparent;
+}
+.cal-day.is-bloom svg {
+  display: block;
+}
+.garden-year {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 6px;
+  padding: 4px 0 8px;
+}
+.garden-year-cell {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+.garden-year-cell.is-in {
   color: var(--ink);
 }
-.collection {
+.garden-year-slot {
+  width: 44px;
+  height: 52px;
+  border: 1.5px dashed #c8c2b8;
+  border-radius: 10px;
+}
+.garden-drop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 4;
+  will-change: transform, opacity;
+}
+.specimen-wrap {
+  padding-block: clamp(48px, 8vh, 96px);
+}
+.specimen-grid {
   list-style: none;
   padding: 0;
-  margin: 24px 0 0;
+  margin: 0;
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 16px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 36px 20px;
 }
-.specimen-btn {
-  width: 100%;
-  border: 1px solid var(--line);
-  background: var(--card);
-  border-radius: 16px;
-  padding: 12px 8px;
+.specimen-card {
   display: grid;
   justify-items: center;
   gap: 6px;
-  transition: transform 200ms var(--ease), box-shadow 200ms var(--ease);
-  min-height: 44px;
+  text-align: center;
 }
-.specimen-btn:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
-}
-html.reduce-motion .specimen-btn:hover {
-  transform: none;
-}
-.specimen-btn span {
-  font-size: 0.8rem;
+.specimen-month {
+  margin: 8px 0 0;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
   font-weight: 600;
 }
-.specimen-btn.is-locked {
-  background: transparent;
-  color: var(--muted);
-}
-.specimen-btn.is-locked .personality {
-  opacity: 0.6;
-}
-.specimen-btn .personality {
-  transition: transform 300ms var(--ease);
-  transform-origin: 50% 60%;
-}
-/* one small idiosyncratic hover per flower [C] */
-.specimen-btn[data-key="tulip"]:hover .personality {
-  transform: rotate(-8deg);
-}
-.specimen-btn[data-key="hibiscus"]:hover .personality {
-  animation: bounce-once 420ms var(--ease);
-}
-.specimen-btn[data-key="rose"]:hover .personality {
-  transform: scale(1.06);
-}
-.specimen-btn[data-key="daffodil"]:hover .personality {
-  transform: rotate(6deg);
-}
-.specimen-btn[data-key="cherry"]:hover .personality {
-  transform: translateY(-4px);
-}
-.specimen-btn[data-key="orchid"]:hover .personality {
-  transform: rotate(-4deg) scale(1.04);
-}
-.specimen-btn[data-key="morningGlory"]:hover .personality {
-  transform: scale(1.08);
-}
-.specimen-btn[data-key="marigold"]:hover .personality {
-  transform: rotate(10deg);
-}
-.specimen-btn[data-key="chrysanthemum"]:hover .personality {
-  transform: rotate(-10deg);
-}
-.specimen-btn[data-key="poinsettia"]:hover .personality {
-  transform: scale(1.05) rotate(3deg);
-}
-@keyframes bounce-once {
-  0% {
-    transform: translateY(0);
-  }
-  40% {
-    transform: translateY(-8px);
-  }
-  100% {
-    transform: translateY(0);
-  }
-}
-html.reduce-motion .specimen-btn .personality {
-  transition: none;
-  animation: none !important;
-  transform: none !important;
-}
-.specimen-dialog {
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 28px;
-  max-width: 360px;
-  text-align: center;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
-}
-.specimen-dialog::backdrop {
-  background: rgba(44, 40, 37, 0.45);
-}
-.specimen-dialog h3 {
-  margin: 12px 0 4px;
-}
-.year-bloom {
-  margin-top: 24px;
-  padding: 16px 20px;
-  border-radius: 14px;
-  background: #fff6e0;
-  border: 1px solid #f0d9a3;
-  display: none;
-}
-.year-bloom.is-on {
-  display: block;
+.specimen-name {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 600;
 }
 @media (max-width: 900px) {
-  .garden-grid {
+  .garden-pin {
     grid-template-columns: 1fr;
     gap: 20px;
     justify-items: center;
   }
-  .garden-body {
-    padding: 16px 0;
+  .cal-book {
+    width: min(320px, 86vw);
   }
-  .collection {
-    grid-template-columns: repeat(3, 1fr);
+  .garden-year {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 10px 6px;
+  }
+  .specimen-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px 16px;
   }
 }
 

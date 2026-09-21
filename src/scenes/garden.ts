@@ -1,9 +1,6 @@
-// Myopia "Twelve flowers, one garden" (spec §8, [B]). Normal flow; a month
-// strip advances Jan → Dec; the flower swaps; the My Garden row fills beneath
-// — earned months as tiny whole plants, un-earned as faint silhouettes,
-// future as dotted lock slots. Then all twelve as collectibles; click opens a
-// specimen card. [C] one idiosyncratic hover per flower; "A year in bloom"
-// after all twelve have been opened.
+// Twelve flowers, one garden. Scroll-driven: phone pinned left, calendar
+// pinned right. Each month's bloom drops into the garden row as its page
+// turns. Reduced motion and narrow screens: a static specimen grid only.
 import { MYOPIA } from "@content/myopia";
 import { phoneFrame } from "../components/frames";
 import { MONTHLY_FLOWERS, MONTH_FULL, flowerHead, miniPlant, type MonthlyFlower } from "../components/plant";
@@ -12,134 +9,200 @@ import { sectionHead } from "../components/ui";
 import type { FlowerArt } from "../lib/flowerArtTypes";
 import { ART_SUNFLOWER } from "../lib/flowerArt.core.gen";
 import { h } from "../lib/dom";
-import { playOnEnter, reducedMotion } from "../lib/motion";
+import { narrow, pinnedSequence, reducedMotion, seg } from "../lib/motion";
 
 type ArtMap = Record<string, FlowerArt>;
 
+const WEEK = ["S", "M", "T", "W", "T", "F", "S"];
+const DIM = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+function artFor(arts: ArtMap, f: MonthlyFlower): FlowerArt {
+  return arts[f.artKey] ?? ART_SUNFLOWER;
+}
+
+function calendarPage(month: number, art: FlowerArt): HTMLElement {
+  const first = new Date(2026, month, 1).getDay();
+  const days = DIM[month];
+  const cells: HTMLElement[] = [];
+  for (let i = 0; i < first; i++) cells.push(h("span", { class: "cal-day is-empty" }));
+  for (let d = 1; d <= days; d++) {
+    const bloom = d === 15;
+    cells.push(h("span", { class: bloom ? "cal-day is-bloom" : "cal-day" }, bloom ? flowerHead(art, 20, MONTHLY_FLOWERS[month].name) : String(d)));
+  }
+  return h(
+    "div",
+    { class: "cal-page" },
+    h("p", { class: "cal-year" }, "2026"),
+    h("p", { class: "cal-month" }, MONTH_FULL[month]),
+    h("div", { class: "cal-week", "aria-hidden": "true" }, ...WEEK.map((w) => h("span", null, w))),
+    h("div", { class: "cal-grid" }, ...cells),
+  );
+}
+
 export function gardenScene() {
   const C = MYOPIA.garden;
-  const { el: screen, plant, gardenRow } = myopiaPlantScreen({ fraction: 1, garden: true });
-  const phone = phoneFrame(screen, { scale: 0.62, label: "The Plant tab with the My Garden row" });
-  const row = gardenRow!.querySelector(".m-garden-row") as HTMLElement;
-  const strip = h("div", { class: "month-strip", role: "img", "aria-label": "Month strip, January to December" }, ...C.months.map((m) => h("span", null, m)));
-  const monthEls = Array.from(strip.children) as HTMLElement[];
-  const caption = h("p", { class: "lede", "aria-live": "polite" });
-  const side = h("div", { class: "plant-side" }, strip, caption);
-  const pin = h("div", { class: "garden-body" }, h("div", { class: "wrap garden-grid" }, h("div", null, phone), side));
+  const section = h("section", { class: "section section--flush", id: "garden" }, h("div", { class: "wrap" }, sectionHead(C.kicker, C.heading, C.body)));
 
-  // Collection
-  const collection = h("ul", { class: "collection", role: "list", "aria-label": "Twelve monthly flowers" });
-  const yearBloom = h("div", { class: "year-bloom", role: "status" }, h("strong", null, C.yearInBloom), h("p", { style: "margin:0" }, C.yearInBloomBody));
-  const dialog = h("dialog", { class: "specimen-dialog", "aria-labelledby": "specimen-title" }) as HTMLDialogElement;
-  const reveal = h(
-    "div",
-    { class: "wrap", style: "margin-top:48px" },
-    sectionHead(null, C.revealHeading, C.revealBody, 3),
-    collection,
-    yearBloom,
-    dialog,
-  );
-
-  const el = h(
-    "section",
-    { class: "section section--tight", id: "garden" },
-    h("div", { class: "wrap" }, sectionHead(C.kicker, C.heading, C.body)),
-    pin,
-    reveal,
-  );
+  const cards = h("ul", { class: "specimen-grid", role: "list", "aria-label": "Twelve monthly flowers" });
+  const cardsWrap = h("div", { class: "wrap specimen-wrap" }, cards);
 
   let arts: ArtMap = { sunflower: ART_SUNFLOWER };
-  const opened = new Set<string>();
+  const usePin = !reducedMotion() && !narrow();
 
-  function artFor(f: MonthlyFlower): FlowerArt {
-    return arts[f.artKey] ?? ART_SUNFLOWER;
+  function emptyCell(label: string) {
+    return h("span", { class: "m-garden-cell m-garden-cell--empty" }, h("span", { class: "m-garden-slot", "aria-hidden": "true" }), h("span", null, label));
+  }
+  function filledCell(f: MonthlyFlower) {
+    return h("span", { class: "m-garden-cell" }, miniPlant(artFor(arts, f), { size: 22, label: `${f.name}, earned` }), h("span", null, C.months[f.month - 1]));
   }
 
-  function fillRow(upToMonth: number) {
-    // Show a 5-slot window ending at the current month (as the app does).
-    row.replaceChildren();
-    const start = Math.max(1, Math.min(upToMonth - 2, 8));
-    for (let m = start; m < start + 5 && m <= 12; m++) {
-      const f = MONTHLY_FLOWERS[m - 1];
-      const label = C.months[m - 1];
-      if (m > upToMonth) {
-        row.appendChild(h("span", { class: "m-garden-cell m-garden-cell--lock" }, h("span", { class: "m-lock", "aria-hidden": "true" }), h("span", null, label)));
-      } else if (C.earned[m - 1]) {
-        row.appendChild(h("span", { class: "m-garden-cell" }, miniPlant(artFor(f), { size: 34, label: `${f.name}, earned` }), h("span", null, label)));
+  function paintRow(row: HTMLElement, filled: number) {
+    row.replaceChildren(
+      ...MONTHLY_FLOWERS.map((f, i) => (i < filled ? filledCell(f) : emptyCell(C.months[i]))),
+    );
+  }
+
+  function buildCards() {
+    cards.replaceChildren(
+      ...MONTHLY_FLOWERS.map((f) =>
+        h(
+          "li",
+          { class: "specimen-card" },
+          flowerHead(artFor(arts, f), 148, f.name),
+          h("p", { class: "specimen-month" }, MONTH_FULL[f.month - 1]),
+          h("h3", { class: "specimen-name" }, f.name),
+        ),
+      ),
+    );
+  }
+
+  function createStage() {
+    const { el: screen, plant, gardenRow } = myopiaPlantScreen({ fraction: 1, garden: true });
+    const row = gardenRow!.querySelector(".m-garden-row") as HTMLElement;
+    row.classList.add("m-garden-row--year");
+    const phone = phoneFrame(screen, { scale: 0.44, label: "The Plant tab: this month's flower and the garden row" });
+
+    const flipLeaf = h("div", { class: "cal-leaf cal-leaf--flip" });
+    const underLeaf = h("div", { class: "cal-leaf cal-leaf--under" });
+    const book = h("div", { class: "cal-book", role: "img", "aria-label": "Calendar, 2026" }, underLeaf, flipLeaf);
+
+    const year = h("div", { class: "garden-year", "aria-hidden": "true" });
+    function paintYear(filled: number) {
+      year.replaceChildren(
+        ...MONTHLY_FLOWERS.map((f, i) =>
+          i < filled
+            ? h("span", { class: "garden-year-cell is-in" }, flowerHead(artFor(arts, f), 52, f.name), h("span", null, C.months[i]))
+            : h("span", { class: "garden-year-cell" }, h("span", { class: "garden-year-slot" }), h("span", null, C.months[i])),
+        ),
+      );
+    }
+
+    const drop = h("div", { class: "garden-drop", "aria-hidden": "true" });
+    const live = h("p", { class: "visually-hidden", "aria-live": "polite" });
+
+    const stage = h(
+      "div",
+      { class: "seq-stage garden-stage" },
+      h("div", { class: "wrap garden-pin" }, h("div", { class: "garden-phone" }, phone), h("div", { class: "garden-cal" }, book)),
+      h("div", { class: "wrap" }, year),
+      drop,
+      live,
+    );
+
+    function setPages(current: number, next: number) {
+      flipLeaf.replaceChildren(calendarPage(current, artFor(arts, MONTHLY_FLOWERS[current])));
+      underLeaf.replaceChildren(calendarPage(next, artFor(arts, MONTHLY_FLOWERS[next])));
+    }
+
+    function headCenter() {
+      const sr = stage.getBoundingClientRect();
+      const hr = plant.head.getBoundingClientRect();
+      return { x: hr.left + hr.width / 2 - sr.left, y: hr.top + hr.height / 2 - sr.top };
+    }
+    function cellCenter(k: number) {
+      const sr = stage.getBoundingClientRect();
+      const cell = (year.children[k] as HTMLElement | undefined) ?? (row.children[k] as HTMLElement | undefined);
+      if (!cell) return { x: sr.width / 2, y: sr.height * 0.8 };
+      const cr = cell.getBoundingClientRect();
+      return { x: cr.left + cr.width / 2 - sr.left, y: cr.top + cr.height / 2 - sr.top };
+    }
+
+    let lastPages = [-1, -1];
+    let lastShown = -1;
+    let lastFilled = -1;
+    let lastDropMonth = -1;
+    let lastKey = "";
+    function apply(i: number, t: number, r: number) {
+      const shown = i < 11 && t > 0.62 ? i + 1 : i;
+      const filled = i >= 11 ? (r > 0.78 ? 12 : 11) : t > 0.5 ? i + 1 : i;
+      const dropAmt = i >= 11 ? seg(r, 0.55, 0.88) : seg(t, 0.04, 0.52);
+      const flipAmt = i >= 11 ? 0 : seg(t, 0.42, 0.95);
+      const f = MONTHLY_FLOWERS[shown];
+
+      if (shown !== lastShown) {
+        lastShown = shown;
+        plant.setFlower(f, artFor(arts, f));
+        plant.set(1);
+      }
+      plant.head.style.opacity = dropAmt > 0.08 && dropAmt < 0.92 && shown === i ? "0.15" : "1";
+      if (filled !== lastFilled) {
+        lastFilled = filled;
+        paintRow(row, filled);
+        paintYear(filled);
+      }
+      const next = Math.min(i + 1, 11);
+      if (lastPages[0] !== i || lastPages[1] !== next) {
+        lastPages = [i, next];
+        setPages(i, next);
+      }
+      flipLeaf.style.transform = `rotateY(${-180 * flipAmt}deg)`;
+      book.setAttribute("aria-label", `${MONTH_FULL[shown]} 2026`);
+
+      const dropping = dropAmt > 0.02 && dropAmt < 0.96;
+      if (dropping) {
+        if (lastDropMonth !== i) {
+          lastDropMonth = i;
+          drop.replaceChildren(flowerHead(artFor(arts, MONTHLY_FLOWERS[i]), 72, MONTHLY_FLOWERS[i].name));
+        }
+        const from = headCenter();
+        const to = cellCenter(i);
+        const p = dropAmt * dropAmt;
+        drop.style.opacity = "1";
+        drop.style.transform = `translate(${from.x + (to.x - from.x) * p}px, ${from.y + (to.y - from.y) * p + 18 * Math.sin(p * Math.PI)}px) translate(-50%, -50%) scale(${1.15 - 0.8 * p})`;
       } else {
-        row.appendChild(h("span", { class: "m-garden-cell m-garden-cell--miss" }, miniPlant(artFor(f), { size: 34, silhouette: true, label: `${f.name}, not earned` }), h("span", null, label)));
+        drop.style.opacity = "0";
+      }
+
+      const key = `${shown}-${filled}`;
+      if (key !== lastKey) {
+        lastKey = key;
+        live.textContent = `${MONTH_FULL[shown]}. ${filled} of 12 in the garden.`;
       }
     }
+
+    paintRow(row, 0);
+    paintYear(0);
+    setPages(0, 1);
+    return { el: stage, apply };
   }
 
-  let lastP = 0;
-  function set(p: number) {
-    lastP = p;
-    const month = Math.min(12, 1 + Math.floor(p * 12));
-    const f = MONTHLY_FLOWERS[month - 1];
-    plant.setFlower(f, artFor(f));
-    plant.set(1);
-    monthEls.forEach((m, i) => {
-      m.classList.toggle("is-on", i === month - 1);
-      m.classList.toggle("is-past", i < month - 1);
-    });
-    caption.textContent = `${MONTH_FULL[month - 1]} · ${f.name}${C.earned[month - 1] ? " · earned" : month > C.currentMonth ? " · not yet" : " · missed"}`;
-    fillRow(month);
-  }
+  const seq = usePin
+    ? pinnedSequence({
+        section,
+        states: 12,
+        restVh: 100,
+        transVh: 24,
+        stepLabels: C.months,
+        stepDescribe: (i) => `${MONTH_FULL[i]} ${MONTHLY_FLOWERS[i].name}`,
+        controlLabel: "Step through the year",
+        stackCaption: (i) => h("p", { class: "mono-label" }, MONTH_FULL[i]),
+        createStage,
+      })
+    : null;
 
-  function buildCollection() {
-    collection.replaceChildren(
-      ...MONTHLY_FLOWERS.map((f) => {
-        const earned = C.earned[f.month - 1];
-        const btn = h(
-          "button",
-          {
-            type: "button",
-            class: `specimen-btn${earned ? "" : " is-locked"}`,
-            "data-key": f.artKey,
-            "aria-haspopup": "dialog",
-            onclick: () => openSpecimen(f),
-          },
-          h("span", { class: "personality" }, flowerHead(artFor(f), 64, `${f.name}`)),
-          h("span", null, `${C.months[f.month - 1]} · ${f.name}`),
-          h("span", { class: "muted", style: "font-weight:500" }, earned ? C.unlocked : C.locked),
-        );
-        return h("li", null, btn);
-      }),
-    );
-  }
+  section.appendChild(cardsWrap);
 
-  function openSpecimen(f: MonthlyFlower) {
-    const earned = C.earned[f.month - 1];
-    dialog.replaceChildren(
-      flowerHead(artFor(f), 200, `${MONTH_FULL[f.month - 1]} ${f.name}`),
-      h("h3", { id: "specimen-title" }, `${MONTH_FULL[f.month - 1]} ${f.name}`),
-      h("p", { class: "muted" }, earned ? C.unlocked : C.locked),
-      h("button", { type: "button", class: "btn", onclick: () => dialog.close() }, C.specimenClose),
-    );
-    dialog.showModal();
-    opened.add(f.id);
-    if (opened.size === 12) yearBloom.classList.add("is-on");
-  }
-
-  async function mount() {
-    fillRow(9);
-    buildCollection();
-    playOnEnter(set, {
-      trigger: pin,
-      durationMs: 6000,
-      steps: [
-        { label: "Jan", p: 0 },
-        { label: "Apr", p: 0.27 },
-        { label: "Jul", p: 0.52 },
-        { label: "Sep", p: 0.7 },
-        { label: "Dec", p: 1 },
-      ],
-      rmDefault: 0.7,
-      controlLabel: "Step through the months",
-      controlMount: side,
-    });
-    // Lazy-load the other eleven heads, then rebuild with real art.
+  async function loadArts() {
     const mod = await import("../lib/flowerArt.extra.gen");
     arts = {
       sunflower: ART_SUNFLOWER,
@@ -155,8 +218,13 @@ export function gardenScene() {
       chrysanthemum: mod.ART_CHRYSANTHEMUM,
       poinsettia: mod.ART_POINSETTIA,
     };
-    buildCollection();
-    set(reducedMotion() ? 0.7 : lastP);
   }
-  return { el, mount };
+
+  async function mount() {
+    await loadArts();
+    buildCards();
+    seq?.mount();
+  }
+
+  return { el: section, mount };
 }

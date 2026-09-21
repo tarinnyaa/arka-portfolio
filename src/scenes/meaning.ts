@@ -86,12 +86,10 @@ export function meaningScene() {
     const blocksRow = h("div", { class: "mm-blocks" }, ...blocks);
     const l3 = h("div", { class: "mm-layer mm-l3" }, blocksRow);
 
-    // ── Shared metric (78 / minutes outdoors / gauge)
+    // ── Shared metric: one number, one arc
     const big = h("p", { class: "display-num mm-big" }, String(C.minutes));
-    const bigLabel = h("p", { class: "mm-big-label" }, C.minutesLabel);
-    const ratio = h("p", { class: "mm-ratio mono-label" }, `${C.minutes} / ${C.target} min`);
     const gauge = buildGauge(C.minutes / C.target);
-    const metric = h("div", { class: "mm-metric" }, big, bigLabel, ratio, h("div", { class: "mm-gauge" }, gauge.svg));
+    const metric = h("div", { class: "mm-metric" }, h("div", { class: "mm-gauge" }, gauge.svg), big);
 
     // ── L4: act
     const plant = createPlant({ copy: false, still: true, label: "The ARKA plant at 78 of 120 minutes: stem and three leaves" });
@@ -104,7 +102,7 @@ export function meaningScene() {
     const l4 = h("div", { class: "mm-layer mm-l4" }, today, metricSlot, plantWrap, bloom, support, link);
     // Amber path overlay (gauge → soil)
     const overlay = s("svg", { class: "mm-overlay", "aria-hidden": "true" });
-    const flow = s("path", { fill: "none", stroke: "#E8A825", "stroke-width": 2.5, "stroke-linecap": "round" });
+    const flow = s("path", { fill: "none", stroke: "#E8A825", "stroke-width": 8, "stroke-linecap": "round" });
     overlay.appendChild(flow);
 
     const caption = h("p", { class: "mm-caption", "aria-live": "polite" });
@@ -135,23 +133,23 @@ export function meaningScene() {
         const ty = sr.top + c.y * sy;
         return { dx: tx - (br.left + br.width / 2), dy: ty - (br.top + br.height / 2) };
       });
-      // Metric → its slot in the final composition
-      // Measured with the metric's own transform cleared so the delta is stable.
       const prevTf = metric.style.transform;
       metric.style.transform = "none";
       const mr = metric.getBoundingClientRect();
       metric.style.transform = prevTf;
       const slot = metricSlot.getBoundingClientRect();
       geo.metricSlotDelta = { dx: slot.left + slot.width / 2 - (mr.left + mr.width / 2), dy: slot.top - mr.top };
-      // Flow path: from the metric slot bottom to the soil of the pot
+      // Amber stroke travels from the open bottom of the gauge into the pot.
+      const gr = gauge.svg.getBoundingClientRect();
       const pr = plant.svg.getBoundingClientRect();
       const g = plantGeometry();
       const soilY = pr.top + ((g.PAD_TOP + g.SOIL_Y) / (g.VB_H + g.PAD_TOP)) * pr.height;
-      const x = pr.left + pr.width / 2 - cr.left;
-      const y0 = slot.bottom - cr.top - 6;
+      const x = gr.left + gr.width / 2 - cr.left;
+      const x1 = pr.left + pr.width / 2 - cr.left;
+      const y0 = gr.bottom - cr.top - 4;
       const y1 = soilY - cr.top;
       overlay.setAttribute("viewBox", `0 0 ${cr.width} ${cr.height}`);
-      flow.setAttribute("d", `M ${x} ${y0} C ${x - 24} ${lerp(y0, y1, 0.35)}, ${x + 18} ${lerp(y0, y1, 0.7)}, ${x} ${y1}`);
+      flow.setAttribute("d", `M ${x} ${y0} C ${x} ${lerp(y0, y1, 0.4)}, ${x1} ${lerp(y0, y1, 0.55)}, ${x1} ${y1}`);
       geo.flowLen = flow.getTotalLength();
       flow.style.strokeDasharray = `${geo.flowLen}`;
     }
@@ -233,32 +231,30 @@ export function meaningScene() {
         gauge.set(seg(t, 0.9, 1) * (C.minutes / C.target));
         setCaption(t < 0.5 ? 1 : 2, t < 0.5 ? 1 - seg(t, 0.1, 0.35) : seg(t, 0.85, 1));
       } else if (i === 2) {
-        // UNDERSTAND. Metric at rest. Transition: gauge contracts; the amber
-        // stroke becomes a path to the soil; the plant grows.
-        op(metric, 1);
-        const d = geo.metricSlotDelta;
-        const mv = ph.out;
-        tf(metric, `translate(${d.dx * mv}px, ${d.dy * mv}px) scale(${lerp(1, 0.6, mv)})`);
-        gauge.set((C.minutes / C.target) * (1 - seg(t, 0.15, 0.4)));
-        gauge.contract(seg(t, 0.15, 0.4));
-        op(today, seg(t, 0.3, 0.5));
-        op(plantWrap, seg(t, 0.25, 0.45));
-        plant.set(0.65 * seg(t, 0.55, 1));
-        flow.style.strokeDashoffset = `${geo.flowLen * (1 - seg(t, 0.32, 0.62))}`;
-        op(flow, seg(t, 0.3, 0.4) * (1 - seg(t, 0.8, 1)));
-        op(bloom, seg(t, 0.85, 1));
+        // UNDERSTAND. Number + arc at rest. Transition: the amber stroke
+        // unwinds and travels down into the pot; the plant grows as it arrives.
+        const leave = seg(t, 0.06, 0.4);
+        op(metric, 1 - seg(t, 0.38, 0.62));
+        tf(metric, "none");
+        gauge.set((C.minutes / C.target) * (1 - leave));
+        gauge.contract(0);
+        flow.style.strokeDashoffset = `${geo.flowLen * (1 - seg(t, 0.16, 0.52))}`;
+        op(flow, seg(t, 0.14, 0.26) * (1 - seg(t, 0.72, 0.92)));
+        op(today, seg(t, 0.32, 0.48));
+        op(plantWrap, seg(t, 0.3, 0.46));
+        plant.set(0.72 * seg(t, 0.48, 0.96));
+        op(bloom, seg(t, 0.82, 1));
         setCaption(t < 0.5 ? 2 : 3, t < 0.5 ? 1 - seg(t, 0.1, 0.35) : 0);
-        op(support, seg(t, 0.88, 1));
+        op(support, seg(t, 0.86, 1));
       } else {
-        // ACT. Final composition; the metric rests in its slot.
-        const d = geo.metricSlotDelta;
-        op(metric, 1);
-        tf(metric, `translate(${d.dx}px, ${d.dy}px) scale(0.6)`);
+        // ACT. The plant is the composition; the gauge has become the growth.
+        op(metric, 0);
+        tf(metric, "none");
         gauge.set(0);
-        gauge.contract(1);
+        gauge.contract(0);
         op(today, 1);
         op(plantWrap, 1);
-        plant.set(0.65);
+        plant.set(0.72);
         op(bloom, 1);
         op(support, 1);
         op(link, seg(r, 0.05, 0.35));
@@ -375,21 +371,20 @@ function buildChart(C: typeof ABOUT.meaning) {
 
 // ─────────────────────────── gauge ───────────────────────────
 function buildGauge(fraction: number) {
-  const W = 260;
-  const H = 140;
-  const cx = 130;
-  const cy = 130;
-  const r = 110;
+  const W = 360;
+  const H = 190;
+  const cx = 180;
+  const cy = 178;
+  const r = 148;
   const arc = (from: number, to: number) => {
     const a0 = Math.PI - from * Math.PI;
     const a1 = Math.PI - to * Math.PI;
     return `M ${cx + r * Math.cos(a0)} ${cy - r * Math.sin(a0)} A ${r} ${r} 0 0 1 ${cx + r * Math.cos(a1)} ${cy - r * Math.sin(a1)}`;
   };
   const svg = s("svg", { viewBox: `0 0 ${W} ${H}`, class: "mm-gauge-svg", "aria-hidden": "true" });
-  svg.appendChild(s("path", { d: arc(0, 1), fill: "none", stroke: "#E5E0DA", "stroke-width": 3 }));
-  const fill = s("path", { d: arc(0, 1), fill: "none", stroke: "#E8A825", "stroke-width": 3, "stroke-linecap": "round" });
+  svg.appendChild(s("path", { d: arc(0, 1), fill: "none", stroke: "#E5E0DA", "stroke-width": 14, "stroke-linecap": "round" }));
+  const fill = s("path", { d: arc(0, 1), fill: "none", stroke: "#E8A825", "stroke-width": 14, "stroke-linecap": "round" });
   svg.appendChild(fill);
-  const g = s("g", null);
   let len = 0;
   const ensure = () => {
     if (!len) {
@@ -405,9 +400,7 @@ function buildGauge(fraction: number) {
     },
     contract(c: number) {
       svg.style.opacity = String(1 - c);
-      svg.style.transform = `scale(${lerp(1, 0.4, c)})`;
     },
     fraction,
-    g,
   };
 }

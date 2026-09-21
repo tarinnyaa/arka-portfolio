@@ -11,9 +11,9 @@ export const STROKE = {
     lede: "One task per screen. Two people, one participant.",
   },
   goals: [
-    { text: "Morning bright-light routine", refs: ["brown2022"] },
-    { text: "Consistent wake-time anchoring", refs: ["mead2022"] },
-    { text: "Night light protection", refs: ["kim2021", "brown2022"] },
+    { value: "Morning", label: "bright-light routine", refs: ["brown2022"] },
+    { value: "07:00", label: "wake-time anchor", refs: ["mead2022"] },
+    { value: "Night", label: "light protection", refs: ["kim2021", "brown2022"] },
   ],
   loop: {
     kicker: "The loop",

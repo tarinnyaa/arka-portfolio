@@ -11,9 +11,9 @@ export const GLAUCOMA = {
     lede: "Three things on screen. Large type. Text with every icon. Nothing that is colour alone.",
   },
   goals: [
-    { text: "Daytime bright-light exposure", refs: ["kawasaki2021"] },
-    { text: "Eye-drop adherence", refs: ["buehne2021"] },
-    { text: "Follow-up attendance", refs: ["leiby2021"] },
+    { value: "Daytime", label: "bright-light exposure", refs: ["kawasaki2021"] },
+    { value: "Eye drops", label: "adherence", refs: ["buehne2021"] },
+    { value: "Follow-up", label: "attendance", refs: ["leiby2021"] },
   ],
   why: {
     kicker: "Why light matters here",

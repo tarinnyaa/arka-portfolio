@@ -21,7 +21,6 @@ export default function depression(): Page {
     title: C.header.title,
     cohort: C.header.cohort,
     status: C.header.status,
-    ribbonLabel: C.header.ribbonLabel,
     lede: C.header.lede,
     goals: C.goals,
   });
@@ -32,7 +31,7 @@ export default function depression(): Page {
     h("div", { class: "wrap" }, sectionHead(C.loop.kicker, C.loop.heading, C.loop.body), loopDiagram(C.loop.nodes, { accent: "#8B5FBF" })),
   );
 
-  const phone = phoneFrame(depressionHome(), { scale: 0.62, label: "Depression home: Good morning. Morning light window 24 of 30 minutes, 6 min remaining, Continue morning light. How are you feeling, five faces. Tonight: wind-down starts at 9:30 PM. Need support? in the header." });
+  const phone = phoneFrame(depressionHome(), { scale: 0.52, label: "Depression home: Good morning. Morning light window 24 of 30 minutes, 6 min remaining, Continue morning light. How are you feeling, five faces. Tonight: wind-down starts at 9:30 PM. Need support? in the header." });
   const co = callouts(phone, [
     { text: "Need support?: permanently in the header of every screen.", at: [0.82, 0.08], side: "right", y: 0.02 },
     { text: "One window, one bar, one action.", at: [0.5, 0.3], side: "left", y: 0.28 },
@@ -54,7 +53,7 @@ export default function depression(): Page {
     h("div", { class: "wrap decision-row" }, h("div", null, configCard(C.config), rationaleDrawer(C.rationale)), designDecision(C.decision)),
   );
 
-  const el = h("div", { class: "page page--depression depression-page", style: "--accent:var(--accent-depression)" }, header, loop, home, win.el, two.el, config, closingBand("depression", C.closing));
+  const el = h("div", { class: "page page--depression depression-page", style: "--accent:var(--accent-depression)" }, header, loop, home, win.el, two.el, config, closingBand("depression", C.closing, { designed: true }));
   return {
     title: C.title,
     el,
