@@ -1,11 +1,11 @@
-// Copy for /myopia. This is the only live configuration — mockups match the
+// Copy for /myopia. This is the only live configuration: mockups match the
 // deployed app exactly and this is the only page allowed to say "deployed".
 
 export const MYOPIA = {
-  title: "ARKA · Myopia — children aged 7–12",
+  title: "ARKA · Myopia: children aged 7-12",
   header: {
     title: "Myopia",
-    cohort: "Children aged 7–12",
+    cohort: "Children aged 7-12",
     status: "live" as const,
     illustrationAlt: "A child in glasses running across a sunlit park while a parent follows with a phone.",
     ribbonLabel: "Light ribbon: outdoor minutes across the day",
@@ -32,7 +32,7 @@ export const MYOPIA = {
     heading: "Numbers, for the person making decisions.",
     body: "The Home tab is the deployed screen. A sync banner confirms today's watch data arrived; a gauge shows outdoor minutes against the 120-minute target; the coaching line says exactly how many more minutes are needed.",
     callouts: [
-      "Sync banner — today's watch data has been received.",
+      "Sync banner: today's watch data has been received.",
       "Gauge: 78 of 120 minutes, green up to the current value.",
       "Coaching line: how many more minutes, and why.",
     ],
@@ -58,10 +58,10 @@ export const MYOPIA = {
     title: "Your plant",
     sub: "Grows with today's time outside",
     thresholds: [
-      { p: 0, label: "0", title: "A seed in the soil", text: "A measured zero. The pot is not empty — the day has started and the watch is reporting." },
-      { p: 0.15, label: "15", title: "First leaf at 15%", text: "18 minutes. The stem is procedural — it scales continuously with minutes — while the leaf is traced art." },
+      { p: 0, label: "0", title: "A seed in the soil", text: "A measured zero. The pot is not empty: the day has started and the watch is reporting." },
+      { p: 0.15, label: "15", title: "First leaf at 15%", text: "18 minutes. The stem is procedural: it scales continuously with minutes: while the leaf is traced art." },
       { p: 0.4, label: "40", title: "Second leaf at 40%", text: "48 minutes. Leaves alternate sides. Every event is a fraction of target, never an absolute minute count." },
-      { p: 0.65, label: "65", title: "Third leaf at 65%", text: "78 minutes — the same number the parent sees on the gauge." },
+      { p: 0.65, label: "65", title: "Third leaf at 65%", text: "78 minutes: the same number the parent sees on the gauge." },
       { p: 0.85, label: "85", title: "Bud at 85%", text: "102 minutes. The shared bud is tinted with September's colour. It wiggles once when the goal is crossed live." },
       { p: 1, label: "100", title: "Bloom at 100%", text: "120 minutes. The September sunflower opens, a soft glow settles behind it and seven sparkles scatter. GOAL REACHED! in six rotating colours." },
       { p: 1.5, label: "150", title: "Beyond at 150%", text: "180 minutes. The glow widens, sparkles multiply, the head rocks gently, and the headline becomes AMAZING!" },
@@ -72,7 +72,7 @@ export const MYOPIA = {
     goalSub: "Your plant is in full bloom for today.",
     amazing: "Amazing!",
     amazingSub: (n: number) => `${n} minutes outside today!`,
-    stepperLabel: "Plant growth — percent of daily target",
+    stepperLabel: "Plant growth: percent of daily target",
   },
   garden: {
     kicker: "Twelve flowers, one garden",
@@ -97,20 +97,20 @@ export const MYOPIA = {
     frames: [
       { label: "Wiggle", text: "The bud rotates ±9° for 450 ms." },
       { label: "Pop", text: "The head scales to 1.08 and settles over 1.1 s." },
-      { label: "Overlay", text: "You did it! — September Sunflower unlocked — one amber button." },
+      { label: "Overlay", text: "You did it!: September Sunflower unlocked: one amber button." },
     ],
     overlay: { title: "You did it!", sub: "September Sunflower unlocked", button: "Add to my garden" },
   },
   arms: {
     kicker: "Two groups",
     heading: "Intervention and comparison.",
-    body: "We're testing whether the feedback loop changes behaviour — not assuming it does.",
+    body: "We're testing whether the feedback loop changes behaviour: not assuming it does.",
     intervention: { title: "Intervention", items: ["Gauge", "Coaching line", "Plant tab"] },
     comparison: { title: "Comparison", items: ["Minutes only"] },
   },
   config: {
     study: "ARKA Myopia",
-    cohort: "Children 7–12",
+    cohort: "Children 7-12",
     tabs: [
       { label: "Home", on: true },
       { label: "Insights", on: true },

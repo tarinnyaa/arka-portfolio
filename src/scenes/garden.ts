@@ -1,4 +1,4 @@
-// Myopia "Twelve flowers, one garden" (spec §8, [B]). Phone pinned; a month
+// Myopia "Twelve flowers, one garden" (spec §8, [B]). Normal flow; a month
 // strip advances Jan → Dec; the flower swaps; the My Garden row fills beneath
 // — earned months as tiny whole plants, un-earned as faint silhouettes,
 // future as dotted lock slots. Then all twelve as collectibles; click opens a
@@ -12,7 +12,7 @@ import { sectionHead } from "../components/ui";
 import type { FlowerArt } from "../lib/flowerArtTypes";
 import { ART_SUNFLOWER } from "../lib/flowerArt.core.gen";
 import { h } from "../lib/dom";
-import { reducedMotion, scrub } from "../lib/motion";
+import { playOnEnter, reducedMotion } from "../lib/motion";
 
 type ArtMap = Record<string, FlowerArt>;
 
@@ -25,7 +25,7 @@ export function gardenScene() {
   const monthEls = Array.from(strip.children) as HTMLElement[];
   const caption = h("p", { class: "lede", "aria-live": "polite" });
   const side = h("div", { class: "plant-side" }, strip, caption);
-  const pin = h("div", { class: "garden-pin" }, h("div", { class: "wrap garden-grid" }, h("div", null, phone), side));
+  const pin = h("div", { class: "garden-body" }, h("div", { class: "wrap garden-grid" }, h("div", null, phone), side));
 
   // Collection
   const collection = h("ul", { class: "collection", role: "list", "aria-label": "Twelve monthly flowers" });
@@ -125,23 +125,20 @@ export function gardenScene() {
   async function mount() {
     fillRow(9);
     buildCollection();
-    scrub(
-      { set },
-      {
-        trigger: pin,
-        pin,
-        end: "+=300%",
-        steps: [
-          { label: "Jan", p: 0 },
-          { label: "Apr", p: 0.27 },
-          { label: "Jul", p: 0.52 },
-          { label: "Sep", p: 0.7 },
-          { label: "Dec", p: 1 },
-        ],
-        rmDefault: 0.7,
-        controlLabel: "Step through the months",
-      },
-    );
+    playOnEnter(set, {
+      trigger: pin,
+      durationMs: 6000,
+      steps: [
+        { label: "Jan", p: 0 },
+        { label: "Apr", p: 0.27 },
+        { label: "Jul", p: 0.52 },
+        { label: "Sep", p: 0.7 },
+        { label: "Dec", p: 1 },
+      ],
+      rmDefault: 0.7,
+      controlLabel: "Step through the months",
+      controlMount: side,
+    });
     // Lazy-load the other eleven heads, then rebuild with real art.
     const mod = await import("../lib/flowerArt.extra.gen");
     arts = {

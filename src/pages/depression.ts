@@ -6,7 +6,7 @@ import { pageHeader } from "../components/pageHeader";
 import { depressionHome } from "../components/screens";
 import { closingBand, configCard, designDecision, loopDiagram, nudgeBanner, proposedTag, rationaleDrawer, sectionHead } from "../components/ui";
 import { h, s } from "../lib/dom";
-import { onEnter, reducedMotion, scrub } from "../lib/motion";
+import { onEnter, playOnEnter, reducedMotion } from "../lib/motion";
 import type { Page } from "../lib/router";
 
 export default function depression(): Page {
@@ -34,7 +34,7 @@ export default function depression(): Page {
 
   const phone = phoneFrame(depressionHome(), { scale: 0.62, label: "Depression home: Good morning. Morning light window 24 of 30 minutes, 6 min remaining, Continue morning light. How are you feeling, five faces. Tonight: wind-down starts at 9:30 PM. Need support? in the header." });
   const co = callouts(phone, [
-    { text: "Need support? — permanently in the header of every screen.", at: [0.82, 0.08], side: "right", y: 0.02 },
+    { text: "Need support?: permanently in the header of every screen.", at: [0.82, 0.08], side: "right", y: 0.02 },
     { text: "One window, one bar, one action.", at: [0.5, 0.3], side: "left", y: 0.28 },
     { text: "Five faces, one tap. No streaks, no missed-day language.", at: [0.5, 0.58], side: "right", y: 0.56 },
   ]);
@@ -93,8 +93,8 @@ function windowScene() {
   const checkList = h("ol", { class: "window-checks" }, ...checks);
   const notif = h("div", { class: "window-notification" }, nudgeBanner(C.notification.title, C.notification.body, { time: "7:40" }));
   const stage = h("div", { class: "window-stage" }, svg, h("div", { class: "two-col" }, checkList, notif));
-  const pin = h("div", { class: "window-pin" }, h("div", { class: "wrap" }, sectionHead(C.kicker, C.heading, C.body), stage));
-  const el = h("section", { class: "section section--tight", id: "window" }, pin);
+  const wrap = h("div", { class: "wrap" }, sectionHead(C.kicker, C.heading, C.body), stage);
+  const el = h("section", { class: "section section--tight", id: "window" }, wrap);
 
   function set(p: number) {
     const x = x0 + (x1 - x0) * p;
@@ -118,26 +118,22 @@ function windowScene() {
     notif.classList.toggle("is-on", n >= 3);
   }
   function mount() {
-    scrub(
-      { set },
-      {
-        // The Depression signature scene: pinned, slow (a long scroll for a
-        // small amount of change — the page's pace is part of the design).
-        trigger: pin,
-        pin,
-        end: "+=220%",
-        steps: [
-          { label: "Wake", p: 0.02 },
-          { label: "Check 1", p: CHECK_AT[0] },
-          { label: "Check 2", p: CHECK_AT[1] },
-          { label: "Prompt", p: CHECK_AT[2] },
-          { label: "Window closes", p: 1 },
-        ],
-        rmDefault: CHECK_AT[2],
-        controlLabel: C.stepperLabel,
-        controlMount: pin.querySelector(".wrap")!,
-      },
-    );
+    // Normal flow. The morning plays once on entry, slowly, and the segmented
+    // control lets the reader revisit any moment.
+    playOnEnter(set, {
+      trigger: stage,
+      durationMs: 7000,
+      steps: [
+        { label: "Wake", p: 0.02 },
+        { label: "Check 1", p: CHECK_AT[0] },
+        { label: "Check 2", p: CHECK_AT[1] },
+        { label: "Prompt", p: CHECK_AT[2] },
+        { label: "Window closes", p: 1 },
+      ],
+      rmDefault: CHECK_AT[2],
+      controlLabel: C.stepperLabel,
+      controlMount: wrap,
+    });
   }
   return { el, mount };
 }

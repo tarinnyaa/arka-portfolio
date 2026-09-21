@@ -1,5 +1,5 @@
 // Design-principle references for the ARKA portfolio site.
-// These support INTERFACE and ACCESSIBILITY choices only — not light-health
+// These support INTERFACE and ACCESSIBILITY choices only: not light-health
 // intervention targets, which come from the FYP deck citations.
 //
 // The build agent may use entries with verified: true and may NOT add its own.
@@ -69,7 +69,7 @@ export const DESIGN_REFERENCES: DesignReference[] = [
   {
     id: "jitai-receptivity",
     claim:
-      "JITAI design distinguishes vulnerability from receptivity — whether support is needed from whether the person is able to act on it. CHECK: confirm this distinction is actually drawn in the text.",
+      "JITAI design distinguishes vulnerability from receptivity: whether support is needed from whether the person is able to act on it. CHECK: confirm this distinction is actually drawn in the text.",
     source: "Teepe GW, et al. Journal of Medical Internet Research, 2021",
     url: "https://www.jmir.org/2021/9/e29412",
     verified: false,

@@ -1,4 +1,4 @@
-// Copy shared across pages: chrome, footer, brand, placeholder labels.
+// Copy shared across pages: chrome, footer, brand.
 
 export const BRAND = {
   name: "ARKA",
@@ -26,8 +26,6 @@ export const ASSETS = {
     stroke: "assets/illustrations/stroke.webp",
     researcher: "assets/illustrations/researcher.webp",
     twoAudiences: "assets/illustrations/two-audiences.webp",
-    luxOffice: "assets/illustrations/lux-office.webp",
-    luxOutdoors: "assets/illustrations/lux-outdoors.webp",
   },
   screenshots: {
     homePartial: "assets/screenshots/01-home-partial.png",
@@ -41,16 +39,6 @@ export const ASSETS = {
   },
 };
 
-/** Files that were absent from public/assets at build time. Each renders a
- * labelled placeholder box sized for the real asset. */
-export const MISSING_ASSETS = [
-  "brand/actlumus.png",
-  "brand/eye-n-brain.png",
-  "brand/nus-medicine.png",
-  "brand/og-image.png",
-  "brand/favicon.png",
-];
-
 export const NAV = {
   modeToggleLabel: "Site mode",
   explore: "Explore",
@@ -58,17 +46,18 @@ export const NAV = {
   exploreHint: "Clean storytelling without citation markers.",
   researchHint: "Shows evidence markers. Click a marker to see the claim, source and link.",
   menu: "Menu",
+  bottomLabel: "Explore the platform",
 };
 
 export const FOOTER = {
-  line1: "Eye N' Brain · NUS Yong Loo Lin School of Medicine",
+  line1: "Eye N' Brain, NUS Yong Loo Lin School of Medicine",
   line2: BRAND.preparedBy,
   illustrative: "All charts on this site show illustrative data. The site never reports a study result.",
 };
 
 export const STATUS = {
   live: "Live study",
-  designed: "Designed configuration",
+  designed: "Proposed configuration",
   liveHint: "This configuration has been running with participants since 2026.",
   designedHint: "This configuration is designed and awaiting a study. Nothing here is validated.",
 };

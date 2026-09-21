@@ -1,15 +1,10 @@
-/* ARKA portfolio — design tokens (spec §3) */
+/* ARKA portfolio: design tokens.
+   Typography, radii and the neutral scale are taken from the ARKA researcher
+   portal (researcher-portal/src/index.css) so the site and the portal read as
+   one product. */
 
-/* Metric-matched local fallbacks so text laid out before the web fonts arrive
-   occupies the same box (removes the font-swap layout shift). Ratios measured
-   headlessly in Chrome: Fraunces 700 vs Georgia bold, Inter 400 vs Arial. */
-@font-face {
-  font-family: "Fraunces Fallback";
-  src: local("Georgia Bold"), local("Georgia");
-  size-adjust: 96.6%;
-  ascent-override: 101.5%;
-  descent-override: 26.9%;
-}
+/* Metric-matched local fallback so text laid out before Inter arrives
+   occupies the same box (no font-swap layout shift). Inter 400 vs Arial. */
 @font-face {
   font-family: "Inter Fallback";
   src: local("Arial"), local("Helvetica");
@@ -19,65 +14,85 @@
 }
 
 :root {
-  /* Base palette */
+  /* Primary palette: warm cream, deep navy, warm amber. */
   --cream: #faf8f5;
-  --ink: #2c2825;
-  --sage: #6ba368;
-  --amber: #e8a825;
-  --terracotta: #d97742;
-  /* Spec muted is #6E695F. Muted *text* is one step darker so it holds 4.5:1
-     on the warmest ambient stop and over the aperture tint (checked against
-     every ambient/aperture blend). The spec value remains for non-text uses. */
-  --muted-fill: #6e695f;
-  --muted: #5a554c;
-  --line: #e6e1d8;
+  --ink: #1a1a1a; /* portal --color-foreground */
+  --navy: #1b2540;
+  --amber: #c48a1a; /* portal --color-primary */
+  --amber-bright: #e8a825; /* the app's sun colour, for fills on dark */
+  --amber-soft: #f4ede2; /* portal --color-sidebar-accent */
+  --amber-wash: #faf6ef; /* portal --color-accent */
+
+  /* Neutrals (portal) */
+  --muted-fill: #6b6560; /* portal --color-muted-foreground */
+  --muted: #5a554c; /* one step darker: holds 4.5:1 on every warm background */
+  --line: #e5e0da; /* portal --color-border */
+  --surface: #f5f2ef; /* portal --color-muted */
+  --sidebar: #fcfaf7; /* portal --color-sidebar */
   --card: #ffffff;
-  /* Text-safe variants of the accent hues: the brand sage/amber/terracotta
-     are fills, not type colours — these pass 4.5:1 on every page background. */
+
+  /* Legacy names still referenced by a few components. */
+  --sage: #6ba368;
+  --terracotta: #d97742;
   --sage-text: #2a6128;
   --amber-text: #6f4b03;
   --terracotta-text: #8f3a14;
 
-  /* Per-page accents (used sparingly) */
+  /* Population accents: small indicators only (a bar, a line, a dot). */
   --accent-healthy: #5b9bd5;
   --accent-myopia: #6ba368;
-  --accent-glaucoma: #1f3a5f;
+  --accent-glaucoma: #4a5d78; /* slate */
   --accent-depression: #8b5fbf;
   --accent-stroke: #0b6f75;
-  --accent: var(--sage);
+  --accent: var(--amber);
 
-  /* Dark section tones (hero + closing) */
+  /* Dark sections (hero, conclusion) */
   --predawn: #1b2540;
   --dusk: #172036;
   --on-dark: #f3efe8;
   --on-dark-muted: #c7c2b8;
 
-  /* Circadian ambient — interpolated on scroll by lib/ambient.ts */
-  --ambient-bg: #f6ebdd;
+  /* Circadian ambient, interpolated on scroll by lib/ambient.ts */
+  --ambient-bg: #f8f5f0;
   --aperture-tint: #e8a825;
-  --aperture-alpha: 0.22;
+  --aperture-alpha: 0.16;
 
-  /* Text */
-  --font-display: "Fraunces", "Fraunces Fallback", Georgia, serif;
-  --font-body: "Inter", "Inter Fallback", system-ui, -apple-system, sans-serif;
+  /* Type: the portal's stack. */
+  --font-body: "Inter", "Inter Fallback", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-display: var(--font-body);
+  /* The deployed child app's Plant tab uses these; kept for mockup fidelity. */
   --font-app-display: "Luckiest Guy", "Baloo 2", system-ui, sans-serif;
   --font-app-body: "Baloo 2", system-ui, sans-serif;
 
   /* Layout */
   --max: 1200px;
   --gutter: 24px;
-  --radius: 20px;
-  --radius-sm: 12px;
-  --shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
   --nav-h: 64px;
 
+  /* Radii (portal: sm 6, md 8, lg 12, xl 16). Interface: 8 small, 12 card, 16 panel. */
+  --r-sm: 8px;
+  --r-card: 12px;
+  --r-panel: 16px;
+  --radius: var(--r-panel);
+  --radius-sm: var(--r-card);
+  --shadow: 0 1px 2px rgba(26, 26, 26, 0.05);
+  --shadow-device: 0 20px 50px -20px rgba(26, 26, 26, 0.25), 0 2px 6px rgba(26, 26, 26, 0.06);
+
   /* Motion */
-  --ease: cubic-bezier(0.22, 0.61, 0.36, 1); /* ≈ power2.out */
-  --dur: 400ms;
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --dur: 500ms;
   --dur-fast: 250ms;
 
+  /* Z-index scale. Nothing else on the site sets a z-index. */
+  --z-bg: 0; /* page background, ambient */
+  --z-deco: 1; /* section decoration (aperture, arcs) */
+  --z-content: 2; /* section content */
+  --z-mockup: 3; /* sticky device mockup inside a sequence */
+  --z-nav: 10; /* top bar */
+  --z-overlay: 20; /* drawer, dialogs, route wipe, skip link */
+
   /* Accessible focus */
-  --focus: 0 0 0 3px var(--cream), 0 0 0 6px var(--accent-glaucoma);
+  --focus: 0 0 0 3px var(--cream), 0 0 0 6px var(--navy);
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -1,4 +1,4 @@
-/* ARKA portfolio — base styles */
+/* ARKA portfolio: base styles */
 *,
 *::before,
 *::after {
@@ -8,7 +8,9 @@
 html {
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
-  overflow-x: hidden;
+  /* clip, not hidden: hidden would turn the root into a scroll container and
+     break position: sticky for every pinned sequence. */
+  overflow-x: clip;
 }
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -24,7 +26,6 @@ body {
   color: var(--ink);
   background: var(--ambient-bg);
   min-height: 100vh;
-  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -40,24 +41,26 @@ h3,
 h4 {
   font-family: var(--font-display);
   font-weight: 600;
-  line-height: 1.15;
+  line-height: 1.12;
   margin: 0 0 0.5em;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.022em;
   text-wrap: balance;
 }
 h1 {
   font-size: clamp(2.2rem, 4.5vw, 3.6rem);
   font-weight: 700;
+  letter-spacing: -0.03em;
 }
 h2 {
-  font-size: clamp(1.7rem, 3vw, 2.4rem);
+  font-size: clamp(1.75rem, 3.1vw, 2.6rem);
+  font-weight: 700;
+  letter-spacing: -0.028em;
 }
 h3 {
-  font-size: clamp(1.2rem, 1.8vw, 1.45rem);
+  font-size: clamp(1.15rem, 1.7vw, 1.4rem);
 }
 h4 {
   font-size: 1.05rem;
-  font-family: var(--font-body);
   font-weight: 600;
 }
 p {
@@ -65,7 +68,8 @@ p {
   max-width: 68ch;
 }
 p.lede {
-  font-size: 1.2rem;
+  font-size: 1.15rem;
+  line-height: 1.55;
   color: var(--ink);
 }
 small,
@@ -95,18 +99,16 @@ code {
 }
 
 :focus-visible {
-  outline: 3px solid var(--accent-glaucoma);
+  outline: 3px solid var(--navy);
   outline-offset: 3px;
   border-radius: 4px;
 }
 .on-dark :focus-visible {
-  outline-color: var(--amber);
+  outline-color: var(--amber-bright);
 }
 [hidden] {
   display: none !important;
 }
-/* Programmatic focus targets (route headings, main) are not interactive; the
-   ring would only mislead. Keyboard focus on real controls is unaffected. */
 h1[tabindex="-1"]:focus-visible,
 main[tabindex="-1"]:focus-visible {
   outline: none;
@@ -128,20 +130,18 @@ main[tabindex="-1"]:focus-visible {
   position: absolute;
   left: 16px;
   top: -60px;
-  z-index: 200;
+  z-index: var(--z-overlay);
   background: var(--ink);
   color: var(--cream);
   padding: 10px 16px;
-  border-radius: 8px;
+  border-radius: var(--r-sm);
   text-decoration: none;
 }
 .skip-link:focus {
   top: 12px;
 }
 
-/* Layout */
-/* The page module is lazy-loaded; reserving a viewport of height keeps the
-   footer below the fold while it arrives (no layout shift on first paint). */
+/* ───────────── Layout ───────────── */
 main {
   min-height: 100vh;
 }
@@ -149,24 +149,34 @@ main {
   width: min(var(--max), 100% - 2 * var(--gutter));
   margin-inline: auto;
 }
+/* Every section owns a bounded region. Nothing inside it may paint outside. */
 .section {
   position: relative;
   padding-block: clamp(64px, 9vw, 120px);
+  overflow: clip;
+  isolation: isolate;
 }
 .section--tight {
   padding-block: clamp(40px, 6vw, 72px);
+}
+.section--flush {
+  padding-block: 0;
 }
 .section-head {
   max-width: 760px;
   margin-bottom: clamp(28px, 4vw, 48px);
 }
-.section-head .kicker {
+.section-head--center {
+  margin-inline: auto;
+  text-align: center;
+}
+.kicker {
   display: block;
-  font-size: 0.8rem;
-  letter-spacing: 0.12em;
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--muted);
-  margin-bottom: 12px;
+  margin-bottom: 14px;
   font-weight: 600;
 }
 .grid-2 {
@@ -205,7 +215,7 @@ main {
 .card {
   background: var(--card);
   border: 1px solid var(--line);
-  border-radius: var(--radius);
+  border-radius: var(--r-panel);
   box-shadow: var(--shadow);
   padding: clamp(20px, 2.5vw, 32px);
 }
@@ -213,6 +223,7 @@ main {
   box-shadow: none;
 }
 
+/* ───────────── Controls ───────────── */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -221,39 +232,49 @@ main {
   min-height: 44px;
   min-width: 44px;
   padding: 10px 20px;
-  border-radius: 999px;
+  border-radius: var(--r-sm);
   border: 1px solid var(--ink);
   background: var(--ink);
   color: var(--cream);
   font-weight: 600;
+  font-size: 0.95rem;
   text-decoration: none;
-  transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+  transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
 }
 .btn:hover {
-  background: #3d3833;
+  background: #33302c;
 }
 .btn--ghost {
   background: transparent;
   color: var(--ink);
-  border-color: var(--ink);
+  border-color: var(--line);
 }
 .btn--ghost:hover {
-  background: rgba(44, 40, 37, 0.06);
+  background: var(--amber-wash);
+  border-color: var(--muted-fill);
 }
 .btn--amber {
   background: var(--amber);
   border-color: var(--amber);
-  color: var(--ink);
+  color: #fff;
 }
 .btn--amber:hover {
-  background: #d99a1c;
+  background: #ad7a15;
 }
 .btn[aria-pressed="true"] {
   background: var(--ink);
+  border-color: var(--ink);
   color: var(--cream);
 }
+.on-dark .btn--ghost {
+  color: var(--on-dark);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+.on-dark .btn--ghost:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
 
-/* Segmented control (also the reduced-motion stepper) */
+/* Segmented control (pills are reserved for this and for tags) */
 .segmented {
   display: inline-flex;
   flex-wrap: wrap;
@@ -264,14 +285,15 @@ main {
   background: var(--card);
 }
 .segmented button {
-  min-height: 44px;
+  min-height: 40px;
   min-width: 44px;
-  padding: 8px 16px;
+  padding: 6px 16px;
   border-radius: 999px;
   border: 0;
   background: transparent;
   color: var(--muted);
   font-weight: 600;
+  font-size: 0.9rem;
 }
 .segmented button[aria-pressed="true"],
 .segmented button[aria-checked="true"] {
@@ -279,7 +301,7 @@ main {
   color: var(--cream);
 }
 .segmented button:hover:not([aria-pressed="true"]) {
-  background: rgba(44, 40, 37, 0.06);
+  background: var(--surface);
   color: var(--ink);
 }
 .segmented--dark {
@@ -290,11 +312,11 @@ main {
   color: var(--on-dark-muted);
 }
 .segmented--dark button[aria-pressed="true"] {
-  background: var(--amber);
+  background: var(--amber-bright);
   color: var(--ink);
 }
 
-/* Dark sections */
+/* ───────────── Dark sections ───────────── */
 .on-dark {
   background: var(--predawn);
   color: var(--on-dark);
@@ -304,20 +326,21 @@ main {
 .on-dark h3 {
   color: var(--on-dark);
 }
-.on-dark .muted {
+.on-dark .muted,
+.on-dark .kicker {
   color: var(--on-dark-muted);
 }
 .muted {
   color: var(--muted);
 }
 
-/* Aperture — the signature flat circle/arc behind key sections */
+/* ───────────── Aperture: flat circle/arc decoration ───────────── */
 .aperture {
   position: absolute;
   inset: 0;
   overflow: hidden;
   pointer-events: none;
-  z-index: 0;
+  z-index: var(--z-deco);
 }
 .aperture::before {
   content: "";
@@ -333,7 +356,6 @@ main {
 }
 .aperture--arc::before {
   top: 100%;
-  transform: translate(-50%, -50%);
 }
 .aperture--low::before {
   top: 80%;
@@ -343,18 +365,107 @@ main {
 }
 .section > .wrap {
   position: relative;
-  z-index: 1;
+  z-index: var(--z-content);
 }
 
-/* Reduced-motion stepper wrapper */
+/* ───────────── Entrance animation (the default motion) ───────────── */
+.enter {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
+  will-change: opacity, transform;
+}
+.enter.is-in {
+  opacity: 1;
+  transform: none;
+}
+html.reduce-motion .enter {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+/* Stagger children of a group entrance. */
+.enter-group > * {
+  transition-delay: calc(var(--i, 0) * 80ms);
+}
+
+/* ───────────── Pinned sequence architecture ─────────────
+   .seq            owns the whole sequence (in normal flow)
+   .seq-wrapper    the scroll distance (height = --seq-total)
+   .seq-viewport   the one sticky 100vh viewport
+   Stage internals have fixed geometry; only transform/opacity animate. */
+.seq {
+  position: relative;
+  /* Clean exit: the stage's last frame leaves before the next heading enters. */
+  padding-bottom: clamp(48px, 8vh, 96px);
+}
+.seq--dark {
+  padding-bottom: 0;
+}
+.seq-wrapper {
+  position: relative;
+  height: var(--seq-total, 300vh);
+}
+.seq-wrapper--static {
+  height: auto;
+}
+.seq-viewport {
+  /* Sits below the sticky top bar so the bar never covers stage content. */
+  position: sticky;
+  top: var(--nav-h);
+  height: calc(100vh - var(--nav-h));
+  height: calc(100dvh - var(--nav-h));
+  overflow: clip;
+  display: grid;
+  grid-template-rows: 1fr;
+}
+.seq-wrapper--static .seq-viewport {
+  position: relative;
+  height: auto;
+  min-height: min(100vh, 900px);
+}
+.seq-stage {
+  position: relative;
+  width: min(var(--max), 100% - 2 * var(--gutter));
+  margin-inline: auto;
+  height: 100%;
+}
+.seq-layer {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  pointer-events: none;
+  will-change: opacity, transform;
+}
+.seq-layer.is-on {
+  pointer-events: auto;
+}
+/* Stacked (narrow screens) */
+.seq-stack {
+  display: grid;
+  gap: clamp(40px, 8vw, 72px);
+}
+.seq-stack-item {
+  display: grid;
+  gap: 12px;
+}
+.seq-stack-item .seq-stage {
+  height: auto;
+  min-height: 60vh;
+}
+.seq-stack-item .seq-layer {
+  position: relative;
+}
+
+/* ───────────── Reduced-motion stepper ───────────── */
 .rm-stepper {
   display: none;
-  margin: 16px auto 24px;
+  margin: 0 auto 24px;
   align-items: center;
   gap: 12px;
   flex-wrap: wrap;
-  /* Steppers are inserted as siblings of pinned blocks (outside .wrap), so they
-     size themselves to the column. Inside .wrap this is a no-op. */
   width: min(var(--max), 100% - 2 * var(--gutter));
 }
 .wrap .rm-stepper {
@@ -365,26 +476,29 @@ main {
   font-size: 0.85rem;
   color: var(--muted);
 }
-html.reduce-motion .rm-stepper {
+html.reduce-motion .rm-stepper,
+.rm-stepper--always {
   display: flex;
 }
 html.reduce-motion .rm-hide {
   display: none !important;
 }
 
-/* Text helpers */
+/* ───────────── Text helpers ───────────── */
 .pull {
   font-family: var(--font-display);
   font-size: clamp(1.4rem, 2.4vw, 2rem);
   font-weight: 600;
-  line-height: 1.3;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
   max-width: 28ch;
 }
 .closing-line {
   font-family: var(--font-display);
   font-size: clamp(1.6rem, 3vw, 2.4rem);
-  font-weight: 600;
-  line-height: 1.25;
+  font-weight: 700;
+  letter-spacing: -0.028em;
+  line-height: 1.15;
   max-width: 26ch;
 }
 .cite {
@@ -394,16 +508,16 @@ html.reduce-motion .rm-hide {
 .note {
   font-size: 0.9rem;
   color: var(--muted);
-  border-left: 3px solid var(--line);
+  border-left: 2px solid var(--line);
   padding-left: 12px;
 }
 .tag {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   font-weight: 600;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   padding: 4px 10px;
   border-radius: 999px;
@@ -412,28 +526,34 @@ html.reduce-motion .rm-hide {
   background: var(--card);
 }
 .tag--proposed {
-  border-color: #cfb3e8;
+  border-color: #d9cbe8;
   color: #5b3a85;
-  background: #f5eefb;
+  background: #f7f2fb;
 }
-.placeholder-asset {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  border: 1.5px dashed var(--muted);
-  border-radius: 8px;
-  color: var(--muted);
+.tag--live {
+  border-color: #c7dcc5;
+  color: var(--sage-text);
+  background: #eef5ed;
+}
+.amber {
+  color: var(--amber);
+}
+.on-dark .amber {
+  color: var(--amber-bright);
+}
+
+/* Big display numbers (78, 21) */
+.display-num {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  font-variant-numeric: tabular-nums;
+}
+.mono-label {
   font-size: 0.72rem;
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  background: repeating-linear-gradient(
-    -45deg,
-    rgba(110, 105, 95, 0.06) 0 6px,
-    transparent 6px 12px
-  );
-  padding: 4px 6px;
-  line-height: 1.2;
-  overflow: hidden;
-  overflow-wrap: anywhere;
-  flex: 0 0 auto;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--muted);
 }

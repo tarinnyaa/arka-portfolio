@@ -1,37 +1,25 @@
 import { ABOUT } from "@content/about";
+import { bottomNav } from "../components/chrome";
 import { resetEvidenceNumbering } from "../components/evidence";
 import { h } from "../lib/dom";
 import type { Page } from "../lib/router";
+import { buildScene } from "../scenes/build";
 import { chainScene } from "../scenes/chain";
-import { closingScene } from "../scenes/closing";
-import { configuratorScene } from "../scenes/configurator";
-import { deliveryScene } from "../scenes/delivery";
-import { eightFourteenScene } from "../scenes/eightFourteen";
-import { engineScene } from "../scenes/engine";
+import { configsScene } from "../scenes/configs";
+import { endingScene } from "../scenes/ending";
+import { gapScene } from "../scenes/gap";
 import { heroScene } from "../scenes/hero";
-import { judgeScene } from "../scenes/judge";
-import { knowingScene } from "../scenes/knowing";
-import { morphScene } from "../scenes/morph";
+import { meaningScene } from "../scenes/meaning";
 import { sensorScene } from "../scenes/sensor";
-import { signalScene } from "../scenes/signal";
+import { timingScene } from "../scenes/timing";
 
+// Narrative order: why light matters → how ARKA measures it → how it makes
+// sense of it → the gap it closes → why timing matters → one platform,
+// different people → the researcher configures → five experiences → ARKA.
 export default function about(): Page {
   resetEvidenceNumbering();
-  const scenes = [
-    heroScene(),
-    chainScene(),
-    judgeScene(),
-    signalScene(),
-    sensorScene(),
-    deliveryScene(),
-    knowingScene(),
-    engineScene(),
-    morphScene(),
-    configuratorScene(),
-    eightFourteenScene(),
-    closingScene(),
-  ];
-  const el = h("div", { class: "page page--about" }, ...scenes.map((sc) => sc.el));
+  const scenes = [heroScene(), chainScene(), sensorScene(), meaningScene(), gapScene(), timingScene(), configsScene(), buildScene(), endingScene()];
+  const el = h("div", { class: "page page--about" }, ...scenes.map((sc) => sc.el), bottomNav("about"));
   return {
     title: ABOUT.title,
     el,

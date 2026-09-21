@@ -2,7 +2,7 @@
 // pressure. No streaks, no missed-day language, no red, no failure states.
 
 export const DEPRESSION = {
-  title: "ARKA · Depression — adults",
+  title: "ARKA · Depression: adults",
   header: {
     title: "Depression",
     cohort: "Adults",
@@ -63,7 +63,7 @@ export const DEPRESSION = {
       title: "Morning light",
       body: "You're at 8 minutes so far. If it suits you, there's still time in today's window.",
     },
-    stepperLabel: "Opportunity window — step through the checks",
+    stepperLabel: "Opportunity window: step through the checks",
   },
   decision2: {
     kicker: "The decision, two ways",

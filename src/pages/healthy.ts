@@ -6,7 +6,7 @@ import { pageHeader } from "../components/pageHeader";
 import { healthyHome } from "../components/screens";
 import { chartFrame, closingBand, configCard, designDecision, nudgeBanner, rationaleDrawer, sectionHead } from "../components/ui";
 import { h, s } from "../lib/dom";
-import { onEnter, reducedMotion, scrub } from "../lib/motion";
+import { onEnter, playOnEnter, reducedMotion } from "../lib/motion";
 import type { Page } from "../lib/router";
 
 export default function healthy(): Page {
@@ -225,22 +225,18 @@ function dayChart() {
       trace.style.strokeDashoffset = `${len * (1 - p)}`;
       ann.setAttribute("opacity", p > 0.72 ? "1" : "0");
     };
-    scrub(
-      { set },
-      {
-        trigger: el,
-        pin: false,
-        end: "bottom 70%",
-        steps: [
-          { label: "Morning", p: 0.3 },
-          { label: "Lunch", p: 0.45 },
-          { label: "Evening", p: 0.7 },
-          { label: "Night", p: 1 },
-        ],
-        controlLabel: "Draw the day's trace",
-        controlMount: frame,
-      },
-    );
+    playOnEnter(set, {
+      trigger: frame,
+      durationMs: 3200,
+      steps: [
+        { label: "Morning", p: 0.3 },
+        { label: "Lunch", p: 0.45 },
+        { label: "Evening", p: 0.7 },
+        { label: "Night", p: 1 },
+      ],
+      controlLabel: "Draw the day's trace",
+      controlMount: frame,
+    });
     if (!reducedMotion()) {
       svg.addEventListener("pointermove", (e) => {
         const r = svg.getBoundingClientRect();

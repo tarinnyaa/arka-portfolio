@@ -22,7 +22,7 @@ export const REFERENCES: Record<string, Reference> = {
   munch2012: {
     id: "munch2012",
     short: "Münch & Bromundt, 2012",
-    source: "Münch M, Bromundt V. Light and chronobiology: implications for health and disease. Dialogues in Clinical Neuroscience, 14(4), 448–453.",
+    source: "Münch M, Bromundt V. Light and chronobiology: implications for health and disease. Dialogues in Clinical Neuroscience, 14(4), 448-453.",
     year: 2012,
     url: "https://doi.org/10.31887/DCNS.2012.14.4/mmunch",
     claim: "Light is the primary environmental time cue for the human circadian system.",
@@ -38,7 +38,7 @@ export const REFERENCES: Record<string, Reference> = {
   berson2002: {
     id: "berson2002",
     short: "Berson et al., 2002",
-    source: "Berson DM, Dunn FA, Takao M. Phototransduction by retinal ganglion cells that set the circadian clock. Science, 295(5557), 1070–1073.",
+    source: "Berson DM, Dunn FA, Takao M. Phototransduction by retinal ganglion cells that set the circadian clock. Science, 295(5557), 1070-1073.",
     year: 2002,
     url: "https://doi.org/10.1126/science.1067262",
     claim: "A class of retinal ganglion cells is intrinsically photosensitive and sets the circadian clock.",
@@ -54,7 +54,7 @@ export const REFERENCES: Record<string, Reference> = {
   nahumshani2016: {
     id: "nahumshani2016",
     short: "Nahum-Shani et al., 2016",
-    source: "Nahum-Shani I, Smith SN, Spring BJ, et al. Just-in-time adaptive interventions (JITAIs) in mobile health: key components and design principles for ongoing health behavior support. Annals of Behavioral Medicine, 52(6), 446–462.",
+    source: "Nahum-Shani I, Smith SN, Spring BJ, et al. Just-in-time adaptive interventions (JITAIs) in mobile health: key components and design principles for ongoing health behavior support. Annals of Behavioral Medicine, 52(6), 446-462.",
     year: 2016,
     url: "https://doi.org/10.1007/s12160-016-9830-8",
     claim: "Just-in-time adaptive interventions deliver support when a person is both in need and able to receive it.",
@@ -62,7 +62,7 @@ export const REFERENCES: Record<string, Reference> = {
   he2015: {
     id: "he2015",
     short: "He et al., 2015",
-    source: "He M, Xiang F, Zeng Y, et al. Effect of time spent outdoors at school on the development of myopia among children in China: a randomized clinical trial. JAMA, 314(11), 1142–1148.",
+    source: "He M, Xiang F, Zeng Y, et al. Effect of time spent outdoors at school on the development of myopia among children in China: a randomized clinical trial. JAMA, 314(11), 1142-1148.",
     year: 2015,
     url: "https://doi.org/10.1001/jama.2015.10803",
     claim: "An additional 40 minutes of outdoor time at school reduced incident myopia over three years.",
@@ -70,7 +70,7 @@ export const REFERENCES: Record<string, Reference> = {
   xiong2017: {
     id: "xiong2017",
     short: "Xiong et al., 2017",
-    source: "Xiong S, Sankaridurg P, Naduvilath T, et al. Time spent in outdoor activities in relation to myopia prevention and control: a meta-analysis and systematic review. Acta Ophthalmologica, 95(6), 551–566.",
+    source: "Xiong S, Sankaridurg P, Naduvilath T, et al. Time spent in outdoor activities in relation to myopia prevention and control: a meta-analysis and systematic review. Acta Ophthalmologica, 95(6), 551-566.",
     year: 2017,
     url: "https://doi.org/10.1111/aos.13403",
     claim: "Outdoor time is protective against myopia onset.",
@@ -86,7 +86,7 @@ export const REFERENCES: Record<string, Reference> = {
   rose2008: {
     id: "rose2008",
     short: "Rose et al., 2008",
-    source: "Rose KA, Morgan IG, Ip J, et al. Outdoor activity reduces the prevalence of myopia in children. Ophthalmology, 115(8), 1279–1285.",
+    source: "Rose KA, Morgan IG, Ip J, et al. Outdoor activity reduces the prevalence of myopia in children. Ophthalmology, 115(8), 1279-1285.",
     year: 2008,
     url: "https://doi.org/10.1016/j.ophtha.2007.12.019",
     claim: "Higher levels of outdoor activity are associated with lower myopia prevalence in children.",
@@ -94,7 +94,7 @@ export const REFERENCES: Record<string, Reference> = {
   guggenheim2012: {
     id: "guggenheim2012",
     short: "Guggenheim et al., 2012",
-    source: "Guggenheim JA, Northstone K, McMahon G, et al. Time outdoors and physical activity as predictors of incident myopia in childhood: a prospective cohort study. Investigative Ophthalmology & Visual Science, 53(6), 2856–2865.",
+    source: "Guggenheim JA, Northstone K, McMahon G, et al. Time outdoors and physical activity as predictors of incident myopia in childhood: a prospective cohort study. Investigative Ophthalmology & Visual Science, 53(6), 2856-2865.",
     year: 2012,
     url: "https://doi.org/10.1167/iovs.11-9091",
     claim: "Less time outdoors predicts incident myopia in childhood.",
@@ -102,7 +102,7 @@ export const REFERENCES: Record<string, Reference> = {
   read2015: {
     id: "read2015",
     short: "Read et al., 2015",
-    source: "Read SA, Collins MJ, Vincent SJ. Light exposure and eye growth in childhood. Investigative Ophthalmology & Visual Science, 56(11), 6779–6787.",
+    source: "Read SA, Collins MJ, Vincent SJ. Light exposure and eye growth in childhood. Investigative Ophthalmology & Visual Science, 56(11), 6779-6787.",
     year: 2015,
     url: "https://doi.org/10.1167/iovs.14-15978",
     claim: "Children with lower measured daily light exposure show faster axial eye growth.",
@@ -110,7 +110,7 @@ export const REFERENCES: Record<string, Reference> = {
   wu2018: {
     id: "wu2018",
     short: "Wu et al., 2018",
-    source: "Wu P-C, Chen C-T, Lin K-K, et al. Myopia prevention and outdoor light intensity in a school-based cluster randomized trial. Ophthalmology, 125(8), 1239–1250.",
+    source: "Wu P-C, Chen C-T, Lin K-K, et al. Myopia prevention and outdoor light intensity in a school-based cluster randomized trial. Ophthalmology, 125(8), 1239-1250.",
     year: 2018,
     url: "https://doi.org/10.1016/j.ophtha.2017.12.011",
     claim: "Outdoor light exposure programmes slow myopic shift and axial elongation.",
@@ -118,7 +118,7 @@ export const REFERENCES: Record<string, Reference> = {
   dirani2009: {
     id: "dirani2009",
     short: "Dirani et al., 2009",
-    source: "Dirani M, Tong L, Gazzard G, et al. Outdoor activity and myopia in Singapore teenage children. British Journal of Ophthalmology, 93(8), 997–1000.",
+    source: "Dirani M, Tong L, Gazzard G, et al. Outdoor activity and myopia in Singapore teenage children. British Journal of Ophthalmology, 93(8), 997-1000.",
     year: 2009,
     url: "https://doi.org/10.1136/bjo.2008.150979",
     claim: "Outdoor activity is associated with less myopia in Singapore teenagers.",
@@ -126,7 +126,7 @@ export const REFERENCES: Record<string, Reference> = {
   feigl2011: {
     id: "feigl2011",
     short: "Feigl et al., 2011",
-    source: "Feigl B, Mattes D, Thomas R, Zele AJ. Intrinsically photosensitive (melanopsin) retinal ganglion cell function in glaucoma. Investigative Ophthalmology & Visual Science, 52(7), 4362–4367.",
+    source: "Feigl B, Mattes D, Thomas R, Zele AJ. Intrinsically photosensitive (melanopsin) retinal ganglion cell function in glaucoma. Investigative Ophthalmology & Visual Science, 52(7), 4362-4367.",
     year: 2011,
     url: "https://doi.org/10.1167/iovs.10-7069",
     claim: "Glaucoma is associated with reduced melanopsin (ipRGC) function.",
@@ -182,7 +182,7 @@ export const REFERENCES: Record<string, Reference> = {
   lam2015: {
     id: "lam2015",
     short: "Lam et al., 2015",
-    source: "Lam RW, Levitt AJ, Levitan RD, et al. Efficacy of bright light treatment, fluoxetine, and the combination in patients with nonseasonal major depressive disorder: a randomized clinical trial. JAMA Psychiatry, 73(1), 56–63.",
+    source: "Lam RW, Levitt AJ, Levitan RD, et al. Efficacy of bright light treatment, fluoxetine, and the combination in patients with nonseasonal major depressive disorder: a randomized clinical trial. JAMA Psychiatry, 73(1), 56-63.",
     year: 2015,
     url: "https://doi.org/10.1001/jamapsychiatry.2015.2235",
     claim: "Morning bright light treatment is effective in nonseasonal major depression.",
@@ -206,7 +206,7 @@ export const REFERENCES: Record<string, Reference> = {
   golden2005: {
     id: "golden2005",
     short: "Golden et al., 2005",
-    source: "Golden RN, Gaynes BN, Ekstrom RD, et al. The efficacy of light therapy in the treatment of mood disorders: a review and meta-analysis of the evidence. American Journal of Psychiatry, 162(4), 656–662.",
+    source: "Golden RN, Gaynes BN, Ekstrom RD, et al. The efficacy of light therapy in the treatment of mood disorders: a review and meta-analysis of the evidence. American Journal of Psychiatry, 162(4), 656-662.",
     year: 2005,
     url: "https://doi.org/10.1176/appi.ajp.162.4.656",
     claim: "Bright light therapy is efficacious for mood disorders.",
@@ -214,7 +214,7 @@ export const REFERENCES: Record<string, Reference> = {
   burns2021: {
     id: "burns2021",
     short: "Burns et al., 2021",
-    source: "Burns AC, Saxena R, Vetter C, et al. Time spent in outdoor light is associated with mood, sleep, and circadian rhythm-related outcomes: a cross-sectional and longitudinal study in over 400,000 UK Biobank participants. Journal of Affective Disorders, 295, 347–352.",
+    source: "Burns AC, Saxena R, Vetter C, et al. Time spent in outdoor light is associated with mood, sleep, and circadian rhythm-related outcomes: a cross-sectional and longitudinal study in over 400,000 UK Biobank participants. Journal of Affective Disorders, 295, 347-352.",
     year: 2021,
     url: "https://doi.org/10.1016/j.jad.2021.08.056",
     claim: "More time in outdoor light is associated with better mood and sleep outcomes.",
@@ -230,7 +230,7 @@ export const REFERENCES: Record<string, Reference> = {
   bernhofer2013: {
     id: "bernhofer2013",
     short: "Bernhofer et al., 2013",
-    source: "Bernhofer EI, Higgins PA, Daly BJ, Burant CJ, Hornick TR. Hospital lighting and its association with sleep, mood and pain in medical inpatients. Journal of Advanced Nursing, 70(5), 1164–1173.",
+    source: "Bernhofer EI, Higgins PA, Daly BJ, Burant CJ, Hornick TR. Hospital lighting and its association with sleep, mood and pain in medical inpatients. Journal of Advanced Nursing, 70(5), 1164-1173.",
     year: 2013,
     url: "https://doi.org/10.1111/jan.12282",
     claim: "Hospital inpatients are exposed to low daytime light, associated with poorer sleep and mood.",
@@ -238,7 +238,7 @@ export const REFERENCES: Record<string, Reference> = {
   west2019: {
     id: "west2019",
     short: "West et al., 2019",
-    source: "West A, Simonsen SA, Jennum P, et al. An exploratory investigation of the effect of naturalistic light on depression, anxiety, and cognitive outcomes in stroke patients during admission for rehabilitation. NeuroRehabilitation, 44(3), 341–351.",
+    source: "West A, Simonsen SA, Jennum P, et al. An exploratory investigation of the effect of naturalistic light on depression, anxiety, and cognitive outcomes in stroke patients during admission for rehabilitation. NeuroRehabilitation, 44(3), 341-351.",
     year: 2019,
     url: "https://doi.org/10.3233/NRE-182565",
     claim: "Lighting in stroke rehabilitation wards is typically inadequate and naturalistic light shows benefit.",
@@ -249,15 +249,15 @@ export const REFERENCES: Record<string, Reference> = {
     source: "Korostovtseva L, Kolomeichuk S. (2023). As cited in the project deck.",
     year: 2023,
     url: null,
-    claim: "Sleep–wake regulation is commonly disturbed after stroke.",
+    claim: "Sleep-wake regulation is commonly disturbed after stroke.",
   },
   hermann2016: {
     id: "hermann2016",
     short: "Hermann & Bassetti, 2016",
-    source: "Hermann DM, Bassetti CL. Role of sleep-disordered breathing and sleep-wake disturbances for stroke and stroke recovery. Neurology, 87(13), 1407–1416.",
+    source: "Hermann DM, Bassetti CL. Role of sleep-disordered breathing and sleep-wake disturbances for stroke and stroke recovery. Neurology, 87(13), 1407-1416.",
     year: 2016,
     url: "https://doi.org/10.1212/WNL.0000000000003037",
-    claim: "Sleep–wake disturbances affect stroke recovery.",
+    claim: "Sleep-wake disturbances affect stroke recovery.",
   },
   baylan2019: {
     id: "baylan2019",
@@ -270,7 +270,7 @@ export const REFERENCES: Record<string, Reference> = {
   duss2016: {
     id: "duss2016",
     short: "Duss et al., 2016",
-    source: "Duss SB, Seiler A, Schmidt MH, et al. The role of sleep in recovery following ischemic stroke: a review of human and animal data. Neurobiology of Sleep and Circadian Rhythms, 2, 94–105.",
+    source: "Duss SB, Seiler A, Schmidt MH, et al. The role of sleep in recovery following ischemic stroke: a review of human and animal data. Neurobiology of Sleep and Circadian Rhythms, 2, 94-105.",
     year: 2016,
     url: "https://doi.org/10.1016/j.nbscr.2016.11.003",
     claim: "Sleep supports neuroplasticity and recovery after ischaemic stroke.",
@@ -285,5 +285,5 @@ export function ref(id: string): Reference {
   return r;
 }
 
-/** References listed without a link — surfaced in the build report. */
+/** References listed without a link: surfaced in the build report. */
 export const UNLINKED_REFERENCES = Object.values(REFERENCES).filter((r) => r.url === null);

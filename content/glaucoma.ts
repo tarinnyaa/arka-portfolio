@@ -1,7 +1,7 @@
 // Copy for /glaucoma. Designed configuration.
 
 export const GLAUCOMA = {
-  title: "ARKA · Glaucoma — older adults",
+  title: "ARKA · Glaucoma: older adults",
   header: {
     title: "Glaucoma",
     cohort: "Older adults",
@@ -107,7 +107,7 @@ export const GLAUCOMA = {
     title: "Why this interface is sparse",
     paragraphs: [
       "Glaucoma reduces contrast sensitivity and peripheral vision. A dense screen becomes a search task. Three items, in order of importance, is the design response.",
-      "Every tap target is at least 64 pixels — above the 44 px used elsewhere on the platform and well above the WCAG 2.2 minimum.",
+      "Every tap target is at least 64 pixels: above the 44 px used elsewhere on the platform and well above the WCAG 2.2 minimum.",
       "Status is always written out. A person who cannot distinguish the green from the amber still reads '36 min remaining'.",
       "Lumi is kept, in large text, because a spoken-style conversation is often easier than a menu for this group. That is a hypothesis to test.",
     ],

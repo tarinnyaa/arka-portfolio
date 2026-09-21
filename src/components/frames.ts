@@ -61,13 +61,28 @@ export function phoneFrame(screen: HTMLElement, opts: PhoneOpts = {}): HTMLEleme
   return h("div", { class: "phone-slot", style: `--scale:${scale}` }, frame);
 }
 
+/**
+ * Laptop. The screen is authored at a fixed logical size (1280×800) and
+ * scaled to fit its slot with a transform, so UI text metrics stay exact.
+ */
+export const LAPTOP_W = 1280;
+export const LAPTOP_H = 800;
 export function laptopFrame(content: HTMLElement, opts: { label?: string; class?: string } = {}): HTMLElement {
-  return h(
+  const screen = h("div", { class: "laptop-screen" }, h("div", { class: "laptop-canvas" }, content));
+  const frame = h(
     "div",
     { class: `laptop${opts.class ? " " + opts.class : ""}`, role: opts.label ? "img" : undefined, "aria-label": opts.label },
-    h("div", { class: "laptop-bezel" }, h("div", { class: "laptop-screen" }, content)),
-    h("div", { class: "laptop-base", "aria-hidden": "true" }),
+    h("div", { class: "laptop-lid" }, h("span", { class: "laptop-cam", "aria-hidden": "true" }), screen),
+    h("div", { class: "laptop-base", "aria-hidden": "true" }, h("span", { class: "laptop-notch" })),
   );
+  // Fit the fixed-size canvas into the lid.
+  const fit = () => {
+    const w = screen.clientWidth;
+    if (w > 0) screen.style.setProperty("--lscale", String(w / LAPTOP_W));
+  };
+  new ResizeObserver(fit).observe(screen);
+  requestAnimationFrame(fit);
+  return frame;
 }
 
 export type CalloutSpec = {

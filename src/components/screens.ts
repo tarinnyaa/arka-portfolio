@@ -81,7 +81,7 @@ export function myopiaGauge(minutes: number, target = 120): SVGSVGElement {
   };
   const svg = s("svg", { viewBox: `0 0 ${W} ${H}`, class: "mgauge", role: "img", "aria-label": `Outdoor time gauge: ${minutes} of ${target} minutes` });
   svg.appendChild(s("path", { d: arc(0, target, r), fill: "none", stroke: "#EBE7E2", "stroke-width": 22 }));
-  if (minutes > 0) svg.appendChild(s("path", { d: arc(0, Math.min(minutes, target), r), fill: "none", stroke: "#6BA368", "stroke-width": 22 }));
+  if (minutes > 0) svg.appendChild(s("path", { class: "mgauge-fill", d: arc(0, Math.min(minutes, target), r), fill: "none", stroke: "#6BA368", "stroke-width": 22 }));
   // ticks every 12
   for (let v = 0; v <= target; v += 12) {
     const major = v % 24 === 0;
@@ -95,7 +95,7 @@ export function myopiaGauge(minutes: number, target = 120): SVGSVGElement {
   }
   // needle
   const [nx, ny] = toXY(Math.min(minutes, target), r - 30);
-  svg.appendChild(s("line", { x1: cx, y1: cy, x2: nx, y2: ny, stroke: "#2C2825", "stroke-width": 2.5, "stroke-linecap": "round" }));
+  svg.appendChild(s("line", { class: "mgauge-needle", x1: cx, y1: cy, x2: nx, y2: ny, stroke: "#2C2825", "stroke-width": 2.5, "stroke-linecap": "round", style: `transform-origin:${cx}px ${cy}px` }));
   svg.appendChild(s("circle", { cx, cy, r: 7, fill: "#fff", stroke: "#2C2825", "stroke-width": 3 }));
   return svg;
 }
@@ -253,7 +253,7 @@ export function healthyHome(opts: { score?: number; lumi?: boolean; dense?: bool
         "div",
         { class: "h-card h-nudge" },
         h("p", { class: "h-nudge-title" }, "Next up"),
-        h("p", null, "Two hours to bed at 21:40 — time to dim the lights."),
+        h("p", null, "Two hours to bed at 21:40: time to dim the lights."),
       ),
     ),
     tabBar(tabs, 0),
@@ -405,7 +405,7 @@ export function strokeHome(opts: { mode?: StrokeMode; done?: boolean; caregiver?
 
 export function caregiverScreen(): HTMLElement {
   const item = (label: string, state: "done" | "pending") =>
-    h("li", { class: `c-item c-item--${state}` }, h("span", { class: "c-mark", "aria-hidden": "true" }, state === "done" ? "✓" : "—"), h("span", null, label), h("span", { class: "c-state" }, state === "done" ? "done" : "pending"));
+    h("li", { class: `c-item c-item--${state}` }, h("span", { class: "c-mark", "aria-hidden": "true" }, state === "done" ? "✓" : ""), h("span", null, label), h("span", { class: "c-state" }, state === "done" ? "done" : "pending"));
   return h(
     "div",
     { class: "scr scr--caregiver" },

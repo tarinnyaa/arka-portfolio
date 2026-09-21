@@ -24,7 +24,7 @@ export function topBar(): HTMLElement {
   const nav = h("nav", { class: "tabs-nav", "aria-label": "Site" }, list);
 
   const modeToggle = buildModeToggle();
-  const logos = labLogos(40, { link: true, class: "nav-logos" });
+  const logos = labLogos(30, { link: true, class: "nav-logos" });
 
   const menuBtn = h(
     "button",
@@ -55,7 +55,7 @@ export function topBar(): HTMLElement {
     h(
       "div",
       { class: "wrap topbar-inner" },
-      h("a", { href: href("/"), "data-link": true, class: "wordmark", "aria-label": "ARKA — About" }, wordmark()),
+      h("a", { href: href("/"), "data-link": true, class: "wordmark", "aria-label": "ARKA, About" }, wordmark()),
       panel,
       menuBtn,
     ),
@@ -122,6 +122,22 @@ function buildModeToggle(): HTMLElement {
   return group;
 }
 
+/** Six-tab navigation repeated at the foot of every page. */
+export function bottomNav(active: RouteKey): HTMLElement {
+  const tabs = ROUTES.map((r) =>
+    h(
+      "li",
+      null,
+      h("a", { href: href(r.path), "data-link": true, class: "tab", "aria-current": r.key === active ? "page" : undefined }, r.label),
+    ),
+  );
+  return h(
+    "nav",
+    { class: "bottom-nav", "aria-label": "Site, repeated" },
+    h("div", { class: "wrap bottom-nav-inner" }, h("span", { class: "kicker" }, NAV.bottomLabel), h("ul", { class: "bottom-tabs", role: "list" }, ...tabs)),
+  );
+}
+
 export function footer(): HTMLElement {
   return h(
     "footer",
@@ -129,7 +145,7 @@ export function footer(): HTMLElement {
     h(
       "div",
       { class: "wrap footer-inner" },
-      labLogos(64, { link: true, class: "footer-logos" }),
+      labLogos(48, { link: true, class: "footer-logos" }),
       h(
         "div",
         { class: "footer-text" },

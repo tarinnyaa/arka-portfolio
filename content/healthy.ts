@@ -1,4 +1,4 @@
-// Copy for /healthy. Designed configuration — nothing here is deployed.
+// Copy for /healthy. Designed configuration: nothing here is deployed.
 
 export const HEALTHY = {
   title: "ARKA · Healthy adults",
@@ -8,7 +8,7 @@ export const HEALTHY = {
     status: "designed" as const,
     illustrationAlt: "An adult in a bright home, morning light coming through a window.",
     ribbonLabel: "Light ribbon: a 24-hour lux profile with three target bands",
-    lede: "Deliberately the densest interface on the platform — the visual opposite of Glaucoma and Stroke.",
+    lede: "Deliberately the densest interface on the platform: the visual opposite of Glaucoma and Stroke.",
   },
   goals: [
     { text: "Day ≥ 250 mEDI", refs: ["brown2022"] },
@@ -42,7 +42,7 @@ export const HEALTHY = {
   score: {
     kicker: "The Light Balance Score",
     heading: "One ring, three arcs.",
-    body: "A 0–100 score with a segment for day, evening and night. Each segment's status is written in words next to its colour.",
+    body: "A 0-100 score with a segment for day, evening and night. Each segment's status is written in words next to its colour.",
     today: 71,
     segments: [
       { key: "day", label: "Day", status: "On track", value: "312 mEDI avg", score: 32, max: 40 },
@@ -51,7 +51,7 @@ export const HEALTHY = {
     ],
     callouts: [
       "Ring: today's score, drawn from 0 to 71.",
-      "Three arcs — day, evening, night — with status in text as well as colour.",
+      "Three arcs: day, evening, night: with status in text as well as colour.",
       "Evening is the segment that pulled the score down.",
     ],
     tabs: ["Home", "Insights", "Lumi", "Inbox", "Diary"],
@@ -64,7 +64,7 @@ export const HEALTHY = {
     body: "The trace draws left to right: a dim indoor morning, a lunchtime peak, a low evening, then a spike at 23:00.",
     chartTitle: "Melanopic EDI across one day",
     summary:
-      "Line chart of melanopic equivalent daylight illuminance across 24 hours on a logarithmic axis, with shaded target bands: day at or above 250, evening at or below 10, night at or below 1. The trace stays around 100–200 through the indoor morning, peaks near 5,000 at lunchtime, falls to around 20 in the evening, then spikes to about 40 at 23:00 before dropping below 1 overnight.",
+      "Line chart of melanopic equivalent daylight illuminance across 24 hours on a logarithmic axis, with shaded target bands: day at or above 250, evening at or below 10, night at or below 1. The trace stays around 100-200 through the indoor morning, peaks near 5,000 at lunchtime, falls to around 20 in the evening, then spikes to about 40 at 23:00 before dropping below 1 overnight.",
     annotation: "This is where the evening score dropped.",
     bands: [
       { label: "Day ≥ 250", from: 7, to: 19, low: 250, high: 100000 },
@@ -81,7 +81,7 @@ export const HEALTHY = {
       { who: "user", text: "Why was my evening score low?" },
       {
         who: "lumi",
-        text: "Your evening exposure rose around 23:10 — your sensor recorded about 40 lux, above the 10-lux evening target. Was that a screen, or room lighting?",
+        text: "Your evening exposure rose around 23:10: your sensor recorded about 40 lux, above the 10-lux evening target. Was that a screen, or room lighting?",
       },
       { who: "options", options: ["A screen", "Room lighting"] },
     ],
@@ -94,7 +94,7 @@ export const HEALTHY = {
     kicker: "Nudges",
     heading: "Two windows, two prompts.",
     items: [
-      { time: "11:40", title: "Morning light", body: "You've had 12 minutes of bright light today — a walk before 2pm would help." },
+      { time: "11:40", title: "Morning light", body: "You've had 12 minutes of bright light today: a walk before 2pm would help." },
       { time: "21:30", title: "Wind-down", body: "Two hours to bed. Time to dim the lights." },
     ],
   },
@@ -129,7 +129,7 @@ export const HEALTHY = {
     paragraphs: [
       "Healthy adults in a light study are typically curious about their own data. The score, the arcs and the full-day chart give them something to explore.",
       "Density is still bounded: three arcs, not ten metrics; one chart, not a dashboard. Every number carries a status in words.",
-      "Lumi is enabled here because the audience can carry a conversation about their day and correct the sensor's blind spots — it never sees the room.",
+      "Lumi is enabled here because the audience can carry a conversation about their day and correct the sensor's blind spots: it never sees the room.",
       "This is a designed configuration. Nothing on this page has run with participants.",
     ],
   },

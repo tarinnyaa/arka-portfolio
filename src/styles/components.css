@@ -2,7 +2,7 @@
 .topbar {
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: var(--z-nav);
   background: rgba(250, 248, 245, 0.92);
   backdrop-filter: saturate(1.2) blur(6px);
   border-bottom: 1px solid var(--line);
@@ -56,7 +56,8 @@
   text-decoration: none;
   color: var(--muted);
   font-weight: 500;
-  border-radius: 8px;
+  font-size: 0.95rem;
+  border-radius: var(--r-sm);
 }
 .tab:hover {
   color: var(--ink);
@@ -86,31 +87,31 @@
   background: var(--line);
 }
 .mode-toggle button {
-  min-height: 40px;
-  padding: 6px 14px;
-  font-size: 0.9rem;
+  min-height: 36px;
+  padding: 4px 14px;
+  font-size: 0.85rem;
 }
 .lab-logos {
   display: inline-flex;
   align-items: center;
   text-decoration: none;
   padding: 2px;
-  border-radius: 8px;
+  border-radius: var(--r-sm);
 }
 .lab-logos-inner {
   display: inline-flex;
   align-items: center;
 }
-.nav-logos img,
-.nav-logos .placeholder-asset {
-  height: 40px;
+.nav-logos img {
+  height: 30px;
+  width: auto !important;
 }
 .menu-btn {
   display: none;
   width: 44px;
   height: 44px;
   border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: var(--r-sm);
   background: var(--card);
   align-items: center;
   justify-content: center;
@@ -123,7 +124,7 @@
   box-shadow: 0 -6px 0 var(--ink), 0 6px 0 var(--ink);
   display: block;
 }
-@media (max-width: 1020px) {
+@media (max-width: 1100px) {
   .nav-logos {
     display: none;
   }
@@ -169,10 +170,43 @@
   }
 }
 
+/* ───────────── Bottom navigation (end of every page) ───────────── */
+.bottom-nav {
+  border-top: 1px solid var(--line);
+  padding: clamp(32px, 4vw, 48px) 0;
+  background: var(--cream);
+}
+.bottom-nav-inner {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.bottom-nav .kicker {
+  margin: 0;
+  flex: 0 0 auto;
+}
+.bottom-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.bottom-tabs .tab {
+  min-height: 40px;
+  border: 1px solid transparent;
+}
+.bottom-tabs .tab[aria-current="page"] {
+  border-color: var(--line);
+  background: var(--card);
+}
+
 .route-wipe {
   position: fixed;
   inset: 0;
-  z-index: 300;
+  z-index: var(--z-overlay);
   pointer-events: none;
   background: var(--predawn);
   clip-path: circle(0% at 50% 50%);
@@ -198,25 +232,29 @@
 .footer-inner {
   display: flex;
   gap: 40px;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
 }
 .footer-text {
   text-align: right;
   max-width: 520px;
+  font-size: 0.9rem;
 }
 .footer-line {
   margin: 0 0 4px;
   max-width: none;
 }
-.footer-logos img,
-.footer-logos .placeholder-asset {
-  height: 64px;
+.footer-logos img {
+  height: 48px;
+  width: auto !important;
 }
 @media (max-width: 720px) {
   .footer-text {
     text-align: left;
+  }
+  .footer-logos img {
+    height: 36px;
   }
 }
 
@@ -224,7 +262,8 @@
 .page-header {
   position: relative;
   padding: clamp(32px, 5vw, 64px) 0 clamp(32px, 4vw, 48px);
-  overflow: hidden;
+  overflow: clip;
+  isolation: isolate;
 }
 .page-header-grid {
   display: grid;
@@ -232,15 +271,16 @@
   gap: clamp(24px, 4vw, 56px);
   align-items: center;
   position: relative;
-  z-index: 1;
+  z-index: var(--z-content);
 }
 .page-header h1 .cohort {
   font-weight: 600;
   color: var(--muted);
   font-size: 0.6em;
+  letter-spacing: -0.01em;
 }
 .page-header-art img {
-  border-radius: var(--radius);
+  border-radius: var(--r-panel);
   aspect-ratio: 3 / 2;
   object-fit: cover !important;
   width: 100%;
@@ -277,31 +317,31 @@
   align-items: center;
   gap: 10px;
   flex-wrap: wrap;
-  padding: 6px 14px 6px 10px;
+  padding: 5px 14px 5px 10px;
   border-radius: 999px;
   border: 1px solid var(--line);
   background: var(--card);
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   margin-bottom: 16px;
 }
 .status-ribbon strong {
   font-weight: 600;
 }
 .status-dot {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background: var(--muted);
+  background: var(--muted-fill);
 }
 .status-ribbon--live .status-dot {
   background: var(--sage);
 }
 .status-ribbon--live strong {
-  color: #3f7b3c;
+  color: var(--sage-text);
 }
 .status-hint {
   color: var(--muted);
-  font-size: 0.82rem;
+  font-size: 0.8rem;
 }
 
 .goal-chips {
@@ -310,17 +350,17 @@
   margin: 0;
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 8px;
 }
 .goal-chip {
   display: inline-flex;
   align-items: baseline;
   gap: 8px;
-  padding: 8px 14px;
+  padding: 6px 12px;
   border-radius: 999px;
   background: var(--card);
   border: 1px solid var(--line);
-  font-size: 0.92rem;
+  font-size: 0.88rem;
   font-weight: 500;
 }
 .goal-chip .cite {
@@ -337,7 +377,7 @@
   background: transparent;
   padding: 0 2px;
   margin: 0 1px;
-  color: var(--accent-glaucoma);
+  color: var(--navy);
   font-weight: 700;
   font-size: 0.85em;
   vertical-align: baseline;
@@ -356,13 +396,13 @@ html[data-mode="research"] .evidence {
 }
 .evidence-card {
   position: absolute;
-  z-index: 50;
+  z-index: var(--z-overlay);
   margin-top: 8px;
   width: min(360px, 90vw);
   padding: 16px 40px 16px 16px;
   background: var(--card);
   border: 1px solid var(--line);
-  border-radius: 14px;
+  border-radius: var(--r-card);
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
   font-size: 0.9rem;
   text-align: left;
@@ -426,7 +466,7 @@ html[data-mode="research"] .evidence {
   align-items: flex-start;
   width: min(220px, 34%);
   padding: 10px 14px;
-  border-radius: 14px;
+  border-radius: var(--r-card);
   background: var(--card);
   border: 1px solid var(--line);
   box-shadow: var(--shadow);
@@ -450,11 +490,6 @@ html[data-mode="research"] .evidence {
   font-size: 0.75rem;
   font-weight: 700;
   background: var(--loop-accent, var(--amber));
-  color: var(--ink);
-}
-.page--glaucoma .loop-node-num,
-.page--depression .loop-node-num,
-.page--stroke .loop-node-num {
   color: #fff;
 }
 @media (max-width: 720px) {
@@ -465,24 +500,32 @@ html[data-mode="research"] .evidence {
   }
 }
 
-/* ───────────── Config card ───────────── */
+/* ───────────── Config card (portal-styled summary) ───────────── */
 .config-card {
   max-width: 720px;
+  padding: 0;
+  overflow: hidden;
+  border-radius: var(--r-card);
+}
+.cfg-head {
+  padding: 18px 22px 14px;
+  border-bottom: 1px solid var(--line);
+  background: var(--sidebar);
 }
 .cfg-head .kicker {
-  display: block;
-  font-size: 0.75rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--muted);
-  font-weight: 600;
   margin-bottom: 6px;
 }
 .cfg-head h3 {
   margin-bottom: 2px;
+  font-size: 1.15rem;
+}
+.cfg-head p {
+  margin: 0;
+  font-size: 0.9rem;
 }
 .cfg-body {
-  margin: 16px 0 0;
+  margin: 0;
+  padding: 6px 22px 14px;
   display: grid;
   gap: 0;
 }
@@ -492,10 +535,14 @@ html[data-mode="research"] .evidence {
   gap: 16px;
   padding: 12px 0;
   border-top: 1px solid var(--line);
+  font-size: 0.92rem;
+}
+.cfg-row:first-child {
+  border-top: 0;
 }
 .cfg-row dt {
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: var(--muted);
 }
 .cfg-row dd {
@@ -511,11 +558,11 @@ html[data-mode="research"] .evidence {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 6px 0;
+  padding: 5px 0;
 }
 .cfg-switch {
-  width: 36px;
-  height: 20px;
+  width: 32px;
+  height: 18px;
   border-radius: 999px;
   background: #d9d4cb;
   position: relative;
@@ -525,24 +572,25 @@ html[data-mode="research"] .evidence {
   position: absolute;
   top: 2px;
   left: 2px;
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
   background: #fff;
 }
 .cfg-toggle.is-on .cfg-switch {
-  background: var(--sage);
+  background: var(--amber);
 }
 .cfg-toggle.is-on .cfg-knob {
-  left: 18px;
+  left: 16px;
 }
 .cfg-state {
   margin-left: auto;
   font-weight: 700;
   color: var(--muted);
+  font-size: 0.85rem;
 }
 .cfg-toggle.is-on .cfg-state {
-  color: #3f7b3c;
+  color: var(--amber-text);
 }
 .cfg-pill {
   display: inline-flex;
@@ -550,13 +598,13 @@ html[data-mode="research"] .evidence {
   gap: 6px;
   padding: 2px 10px;
   border-radius: 999px;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 600;
-  background: #f0ede8;
+  background: var(--surface);
 }
 .cfg-pill.on {
-  background: #e4f0e3;
-  color: var(--sage-text);
+  background: var(--amber-soft);
+  color: var(--amber-text);
 }
 @media (max-width: 560px) {
   .cfg-row {
@@ -572,17 +620,17 @@ html[data-mode="research"] .evidence {
   align-items: flex-start;
   width: min(360px, 100%);
   padding: 12px 14px;
-  border-radius: 18px;
+  border-radius: var(--r-panel);
   background: rgba(255, 255, 255, 0.96);
   border: 1px solid var(--line);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 6px 20px -8px rgba(26, 26, 26, 0.18);
   font-size: 0.9rem;
 }
 .nudge-icon {
-  width: 38px;
-  height: 38px;
-  border-radius: 10px;
-  background: var(--sage);
+  width: 36px;
+  height: 36px;
+  border-radius: var(--r-sm);
+  background: var(--amber);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -595,7 +643,7 @@ html[data-mode="research"] .evidence {
 .nudge-app {
   display: flex;
   justify-content: space-between;
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--muted);
@@ -610,6 +658,7 @@ html[data-mode="research"] .evidence {
 /* ───────────── Chart frame ───────────── */
 .chart-frame {
   margin: 0;
+  border-radius: var(--r-card);
 }
 .chart-title {
   font-weight: 600;
@@ -627,7 +676,7 @@ html[data-mode="research"] .evidence {
 }
 .chart-illustrative {
   margin: 12px 0 0;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -649,12 +698,7 @@ html[data-mode="research"] .evidence {
   border-top: 1px solid var(--ink);
 }
 .design-decision .kicker {
-  display: block;
-  font-size: 0.72rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--muted);
-  font-weight: 600;
+  margin-bottom: 4px;
 }
 .design-decision h3 {
   margin: 4px 0 8px;
@@ -667,6 +711,7 @@ html[data-mode="research"] .evidence {
   font-family: var(--font-display);
   font-size: 2rem;
   font-weight: 700;
+  letter-spacing: -0.04em;
   line-height: 1;
   color: var(--amber-text);
 }
@@ -678,12 +723,12 @@ html[data-mode="research"] .evidence {
 .drawer {
   position: fixed;
   inset: 0;
-  z-index: 200;
+  z-index: var(--z-overlay);
 }
 .drawer-scrim {
   position: absolute;
   inset: 0;
-  background: rgba(44, 40, 37, 0.35);
+  background: rgba(26, 26, 26, 0.35);
   opacity: 0;
   transition: opacity 250ms var(--ease);
 }
@@ -706,14 +751,6 @@ html[data-mode="research"] .evidence {
 .drawer.is-open .drawer-panel {
   transform: none;
 }
-.drawer-panel .kicker {
-  display: block;
-  font-size: 0.75rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--muted);
-  font-weight: 600;
-}
 .drawer-close {
   margin-top: 16px;
 }
@@ -723,7 +760,7 @@ body.drawer-open {
 
 /* ───────────── Closing band ───────────── */
 .closing-band {
-  overflow: hidden;
+  overflow: clip;
   text-align: center;
 }
 .closing-band .wrap {
@@ -736,7 +773,8 @@ body.drawer-open {
   margin: 0;
 }
 
-/* ───────────── Phone frame ───────────── */
+/* ───────────── Phone frame ─────────────
+   390×844 logical; thin bezel; scaled by --scale. */
 .phone-slot {
   width: calc(390px * var(--scale));
   height: calc(844px * var(--scale));
@@ -755,15 +793,16 @@ body.drawer-open {
 .phone-bezel {
   width: 100%;
   height: 100%;
-  border-radius: 34px;
-  background: #1a1815;
-  padding: 12px;
+  border-radius: 44px;
+  background: #1c1a18;
+  padding: 4px;
+  box-shadow: var(--shadow-device);
 }
 .phone-screen {
   position: relative;
   width: 100%;
   height: 100%;
-  border-radius: 24px;
+  border-radius: 40px;
   overflow: hidden;
   background: var(--cream);
   display: flex;
@@ -775,10 +814,10 @@ body.drawer-open {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 14px 24px 0;
+  padding: 16px 30px 0;
   font-size: 15px;
   font-weight: 600;
-  height: 44px;
+  height: 50px;
   flex: 0 0 auto;
 }
 .phone-status-right {
@@ -802,31 +841,70 @@ body.drawer-open {
   max-width: none;
   text-wrap: initial;
 }
+.on-dark .phone-bezel {
+  background: #0f1422;
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.7), inset 0 0 0 1.5px rgba(255, 255, 255, 0.12);
+}
 
-/* Laptop frame */
+/* ───────────── Laptop frame ─────────────
+   Thin lid, fixed 1280×800 canvas scaled to fit. */
 .laptop {
-  max-width: 900px;
+  width: 100%;
+  max-width: 980px;
   margin: 0 auto;
 }
-.laptop-bezel {
-  background: #1a1815;
-  border-radius: 18px 18px 6px 6px;
-  padding: 14px 14px 18px;
+.laptop-lid {
+  position: relative;
+  background: #1c1a18;
+  border-radius: 12px 12px 3px 3px;
+  padding: 6px 6px 8px;
+  box-shadow: var(--shadow-device);
+}
+.laptop-cam {
+  position: absolute;
+  top: 3px;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #0d0c0b;
+  transform: translateX(-50%);
 }
 .laptop-screen {
-  aspect-ratio: 16 / 10;
-  background: var(--cream);
-  border-radius: 8px;
+  position: relative;
+  aspect-ratio: 1280 / 800;
+  background: #fff;
+  border-radius: 4px;
   overflow: hidden;
 }
+.laptop-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1280px;
+  height: 800px;
+  transform: scale(var(--lscale, 0.5));
+  transform-origin: top left;
+}
 .laptop-base {
-  height: 14px;
-  background: #2b2825;
-  border-radius: 0 0 14px 14px;
-  margin: 0 -3%;
+  position: relative;
+  height: 10px;
+  background: linear-gradient(#3a3733, #2a2724);
+  border-radius: 0 0 10px 10px;
+  margin: 0 -2.5%;
+}
+.laptop-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 12%;
+  height: 4px;
+  background: #1c1a18;
+  border-radius: 0 0 6px 6px;
+  transform: translateX(-50%);
 }
 
-/* Callouts */
+/* ───────────── Callouts ───────────── */
 .callout-stage {
   position: relative;
   display: flex;
@@ -849,7 +927,7 @@ body.drawer-open {
   padding: 10px 14px;
   background: var(--card);
   border: 1px solid var(--line);
-  border-radius: 12px;
+  border-radius: var(--r-card);
   font-size: 0.88rem;
   line-height: 1.4;
   opacity: 0;
@@ -871,9 +949,9 @@ body.drawer-open {
   height: 10px;
   border-radius: 50%;
   background: var(--amber);
-  border: 2px solid var(--ink);
+  border: 2px solid #fff;
   transform: translate(-50%, -50%);
-  z-index: 2;
+  z-index: var(--z-content);
 }
 html.reduce-motion .callout-label {
   opacity: 1;

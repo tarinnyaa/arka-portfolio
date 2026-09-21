@@ -1,7 +1,7 @@
 // Copy for /stroke. Designed configuration.
 
 export const STROKE = {
-  title: "ARKA · Stroke — rehabilitation",
+  title: "ARKA · Stroke: rehabilitation",
   header: {
     title: "Stroke",
     cohort: "Rehabilitation",
@@ -93,8 +93,8 @@ export const STROKE = {
       "Actogram with fourteen rows, each spanning 48 hours. The first seven rows show fragmented sleep with wake times varying between 5:30 and 9:45 and dim daytime light. A divider marks the start of the intervention. The following seven rows show wake times converging on 07:00, a consolidated sleep band and a bright morning-light block each day.",
     divider: "Intervention starts",
     caption:
-      "How to read it: each row is one day plotted twice — hours 0–24 then 24–48 — so the same night appears at the right of one row and the left of the next. Dark bands are sleep; brighter cells are more light. Illustrative data.",
-    stepperLabel: "Actogram — draw rows",
+      "How to read it: each row is one day plotted twice: hours 0-24 then 24-48: so the same night appears at the right of one row and the left of the next. Dark bands are sleep; brighter cells are more light. Illustrative data.",
+    stepperLabel: "Actogram: draw rows",
   },
   anchor: {
     kicker: "The anchor",
@@ -136,7 +136,7 @@ export const STROKE = {
     paragraphs: [
       "After a stroke, attention, motor control and language can each be affected differently. A dashboard asks all three to work at once.",
       "One instruction, one button and a listen control ask for one thing. When it is done, the next task takes the whole screen.",
-      "The caregiver view carries the information the patient screen leaves out — adherence, what is pending, and a line to the research team.",
+      "The caregiver view carries the information the patient screen leaves out: adherence, what is pending, and a line to the research team.",
       "The three accessibility modes are designed from published recommendations for stroke survivors and people with aphasia. None has been evaluated with participants yet.",
     ],
     designRefs: ["stroke-uiux", "aphasia-technology"],

@@ -6,7 +6,7 @@ import { pageHeader } from "../components/pageHeader";
 import { caregiverScreen, strokeHome, type StrokeMode } from "../components/screens";
 import { chartFrame, closingBand, configCard, designDecision, loopDiagram, rationaleDrawer, sectionHead } from "../components/ui";
 import { h, s } from "../lib/dom";
-import { reducedMotion, scrub } from "../lib/motion";
+import { playOnEnter, reducedMotion } from "../lib/motion";
 import type { Page } from "../lib/router";
 
 export default function stroke(): Page {
@@ -171,21 +171,16 @@ function actogram() {
     rowEls.forEach((g, i) => g.setAttribute("opacity", p * rows >= i + 0.5 ? "1" : "0"));
   }
   function mount() {
-    scrub(
-      { set },
-      {
-        trigger: frame,
-        pin: false,
-        start: "top 75%",
-        end: "bottom 60%",
-        steps: [
-          { label: "Before", p: 0.5 },
-          { label: "After", p: 1 },
-        ],
-        controlLabel: C.stepperLabel,
-        controlMount: frame,
-      },
-    );
+    playOnEnter(set, {
+      trigger: frame,
+      durationMs: 2600,
+      steps: [
+        { label: "Before", p: 0.5 },
+        { label: "After", p: 1 },
+      ],
+      controlLabel: C.stepperLabel,
+      controlMount: frame,
+    });
   }
   return { el, mount };
 }

@@ -3,7 +3,8 @@
 import { CHART, NEXT_LINKS, STATUS } from "@content/shared";
 import { h, id, s } from "../lib/dom";
 import { onEnter, reducedMotion } from "../lib/motion";
-import { href } from "../lib/router";
+import { href, type RouteKey } from "../lib/router";
+import { bottomNav } from "./chrome";
 import { citeInline, evidence } from "./evidence";
 import { arrowIcon, checkIcon, crossIcon, sunIcon } from "./icons";
 
@@ -301,20 +302,23 @@ export function rationaleDrawer(r: { button: string; title: string; paragraphs: 
   return h("div", { class: "rationale" }, open, panel);
 }
 
-/** Dark closing band at the foot of every page (the day's dusk). */
+/** Dark closing band at the foot of every demographic page, followed by the
+ *  repeated six tab navigation so a reader can move on without scrolling
+ *  back to the top. */
 export function closingBand(routeKey: string, line: string): HTMLElement {
   const next = NEXT_LINKS[routeKey];
-  return h(
+  const band = h(
     "section",
     { class: "section closing-band on-dark", "aria-label": "Closing" },
     h("div", { class: "aperture aperture--low" }),
     h(
       "div",
-      { class: "wrap" },
+      { class: "wrap", "data-enter": true },
       h("p", { class: "closing-line" }, line),
       next ? h("a", { href: href(next.path), "data-link": true, class: "btn btn--amber" }, next.label, arrowIcon(16)) : null,
     ),
   );
+  return h("div", { class: "page-end" }, band, bottomNav(routeKey as RouteKey));
 }
 
 /** Proposed tag — untested design hypothesis. */
