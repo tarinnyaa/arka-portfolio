@@ -55,20 +55,12 @@ export const FOOTER = {
   illustrative: "All charts on this site show illustrative data. The site never reports a study result.",
 };
 
-export const STATUS = {
-  live: "Live study",
-  designed: "Designed",
-  liveTooltip: "Running with participants since 2026.",
-  designedTooltip: "Designed configuration. Not yet studied.",
-  designedFooter: "This configuration is designed and has not been studied.",
-};
-
 export const CHART = {
   illustrative: "Illustrative data",
 };
 
 export const NEXT_LINKS: Record<string, { path: string; label: string }> = {
-  about: { path: "/myopia", label: "Start with the live study: Myopia" },
+  about: { path: "/myopia", label: "See the myopia experience" },
   myopia: { path: "/healthy", label: "Next configuration: Healthy adults" },
   healthy: { path: "/glaucoma", label: "Next configuration: Glaucoma" },
   glaucoma: { path: "/depression", label: "Next configuration: Depression" },

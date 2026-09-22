@@ -6,7 +6,6 @@ export const MYOPIA = {
   header: {
     title: "Myopia",
     cohort: "Children aged 7-12",
-    status: "live" as const,
     illustrationAlt: "A child in glasses running across a sunlit park while a parent follows with a phone.",
     ribbonLabel: "Light ribbon: outdoor minutes across the day",
     lede: "A parent sees numbers. A child sees a plant. The same wrist sensor drives both.",

@@ -5,7 +5,6 @@ export const GLAUCOMA = {
   header: {
     title: "Glaucoma",
     cohort: "Older adults",
-    status: "designed" as const,
     illustrationAlt: "An older adult seated by a bright window.",
     ribbonLabel: "Light ribbon: a single daytime bright-light target",
     lede: "Three things on screen. Large type. Text with every icon. Nothing that is colour alone.",

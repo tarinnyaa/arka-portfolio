@@ -20,7 +20,6 @@ export default function depression(): Page {
     illustrationAlt: C.header.illustrationAlt,
     title: C.header.title,
     cohort: C.header.cohort,
-    status: C.header.status,
     lede: C.header.lede,
     goals: C.goals,
   });
@@ -53,7 +52,7 @@ export default function depression(): Page {
     h("div", { class: "wrap decision-row" }, h("div", null, configCard(C.config), rationaleDrawer(C.rationale)), designDecision(C.decision)),
   );
 
-  const el = h("div", { class: "page page--depression depression-page", style: "--accent:var(--accent-depression)" }, header, loop, home, win.el, two.el, config, closingBand("depression", C.closing, { designed: true }));
+  const el = h("div", { class: "page page--depression depression-page", style: "--accent:var(--accent-depression)" }, header, loop, home, win.el, two.el, config, closingBand("depression", C.closing));
   return {
     title: C.title,
     el,

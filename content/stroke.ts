@@ -5,7 +5,6 @@ export const STROKE = {
   header: {
     title: "Stroke",
     cohort: "Rehabilitation",
-    status: "designed" as const,
     illustrationAlt: "A person in rehabilitation with a caregiver, morning light in the room.",
     ribbonLabel: "Light ribbon: a 07:00 wake anchor with a morning-light block",
     lede: "One task per screen. Two people, one participant.",
@@ -137,7 +136,7 @@ export const STROKE = {
       "After a stroke, attention, motor control and language can each be affected differently. A dashboard asks all three to work at once.",
       "One instruction, one button and a listen control ask for one thing. When it is done, the next task takes the whole screen.",
       "The caregiver view carries the information the patient screen leaves out: adherence, what is pending, and a line to the research team.",
-      "The three accessibility modes are designed from published recommendations for stroke survivors and people with aphasia. None has been evaluated with participants yet.",
+      "The three accessibility modes are designed from published recommendations for stroke survivors and people with aphasia.",
     ],
     designRefs: ["stroke-uiux", "aphasia-technology"],
   },

@@ -80,7 +80,7 @@ export function gardenScene() {
     const { el: screen, plant, gardenRow } = myopiaPlantScreen({ fraction: 1, garden: true });
     const row = gardenRow!.querySelector(".m-garden-row") as HTMLElement;
     row.classList.add("m-garden-row--year");
-    const phone = phoneFrame(screen, { scale: 0.44, label: "The Plant tab: this month's flower and the garden row" });
+    const phone = phoneFrame(screen, { scale: 0.78, class: "garden-device", label: "The Plant tab: this month's flower and the garden row" });
 
     const flipLeaf = h("div", { class: "cal-leaf cal-leaf--flip" });
     const underLeaf = h("div", { class: "cal-leaf cal-leaf--under" });

@@ -1919,21 +1919,27 @@ html.reduce-motion .sen-phone-frame {
 }
 .garden-pin {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: clamp(28px, 5vw, 72px);
+  grid-template-columns: auto minmax(220px, 260px);
+  gap: clamp(24px, 3vw, 48px);
   align-items: center;
+  justify-content: center;
+  max-width: min(1280px, calc(100% - 2 * var(--gutter)));
 }
 .garden-phone {
   display: flex;
   justify-content: center;
 }
+.garden-phone .phone-slot,
+.garden-phone .phone {
+  --scale: min(0.96, calc((100dvh - var(--nav-h) - 118px) / 844px)) !important;
+}
 .garden-cal {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
 }
 .cal-book {
   position: relative;
-  width: min(360px, 34vw);
+  width: min(248px, 22vw);
   aspect-ratio: 3 / 4;
   perspective: 1600px;
   background: #e7e0d4;
@@ -1959,14 +1965,14 @@ html.reduce-motion .sen-phone-frame {
 }
 .cal-page {
   height: 100%;
-  padding: 28px 24px 22px;
+  padding: 18px 16px 14px;
   display: grid;
   grid-template-rows: auto auto auto 1fr;
-  gap: 8px;
+  gap: 6px;
 }
 .cal-year {
   margin: 0;
-  font-size: 0.78rem;
+  font-size: 0.68rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--muted);
@@ -1974,7 +1980,7 @@ html.reduce-motion .sen-phone-frame {
 .cal-month {
   margin: 0;
   font-family: var(--font-display);
-  font-size: clamp(2rem, 3.4vw, 2.8rem);
+  font-size: clamp(1.45rem, 2.2vw, 1.9rem);
   font-weight: 700;
   letter-spacing: -0.03em;
   line-height: 1;
@@ -1993,10 +1999,10 @@ html.reduce-motion .sen-phone-frame {
   font-weight: 600;
 }
 .cal-day {
-  min-height: 28px;
+  min-height: 22px;
   display: grid;
   place-items: center;
-  font-size: 0.82rem;
+  font-size: 0.72rem;
   font-variant-numeric: tabular-nums;
 }
 .cal-day.is-empty {

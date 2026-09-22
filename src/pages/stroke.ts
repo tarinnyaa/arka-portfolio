@@ -20,7 +20,6 @@ export default function stroke(): Page {
     illustrationAlt: C.header.illustrationAlt,
     title: C.header.title,
     cohort: C.header.cohort,
-    status: C.header.status,
     lede: C.header.lede,
     goals: C.goals,
   });
@@ -72,7 +71,7 @@ export default function stroke(): Page {
     h("div", { class: "wrap decision-row" }, h("div", null, configCard(C.config), rationaleDrawer(C.rationale)), designDecision(C.decision)),
   );
 
-  const el = h("div", { class: "page page--stroke", style: "--accent:var(--accent-stroke)" }, header, loop, home, modes.el, two, acto.el, anchor.el, config, closingBand("stroke", C.closing, { designed: true }));
+  const el = h("div", { class: "page page--stroke", style: "--accent:var(--accent-stroke)" }, header, loop, home, modes.el, two, acto.el, anchor.el, config, closingBand("stroke", C.closing));
   return {
     title: C.title,
     el,

@@ -20,7 +20,6 @@ export default function glaucoma(): Page {
     illustrationAlt: C.header.illustrationAlt,
     title: C.header.title,
     cohort: C.header.cohort,
-    status: C.header.status,
     lede: C.header.lede,
     goals: C.goals,
   });
@@ -74,7 +73,7 @@ export default function glaucoma(): Page {
     h("div", { class: "wrap decision-row" }, h("div", null, configCard(C.config), rationaleDrawer(C.rationale)), designDecision(C.decision)),
   );
 
-  const el = h("div", { class: "page page--glaucoma", style: "--accent:var(--accent-glaucoma)" }, header, why, home, slider.el, day, config, closingBand("glaucoma", C.closing, { designed: true }));
+  const el = h("div", { class: "page page--glaucoma", style: "--accent:var(--accent-glaucoma)" }, header, why, home, slider.el, day, config, closingBand("glaucoma", C.closing));
   return {
     title: C.title,
     el,

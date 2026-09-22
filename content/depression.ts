@@ -6,7 +6,6 @@ export const DEPRESSION = {
   header: {
     title: "Depression",
     cohort: "Adults",
-    status: "designed" as const,
     illustrationAlt: "An adult sitting quietly in soft morning light.",
     ribbonLabel: "Light ribbon: a morning opportunity window in the two hours after waking",
     lede: "The page's own pace changes here. Fewer elements at once. More room. Nothing celebrates.",

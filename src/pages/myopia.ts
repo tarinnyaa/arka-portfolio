@@ -25,7 +25,6 @@ export default function myopia(): Page {
     illustrationAlt: C.header.illustrationAlt,
     title: C.header.title,
     cohort: C.header.cohort,
-    status: C.header.status,
     lede: C.header.lede,
     goals: C.goals,
   });

@@ -1,8 +1,8 @@
-// Demographic page header: illustration, title with status tag, lede and goal spec.
+// Demographic page header: illustration, title, lede and goal spec.
 import { h } from "../lib/dom";
 import type { RibbonKind } from "./lightRibbon";
 import { img } from "./assets";
-import { goalSpec, statusTag, type GoalRow } from "./ui";
+import { goalSpec, type GoalRow } from "./ui";
 
 export function pageHeader(opts: {
   kind: RibbonKind;
@@ -11,7 +11,6 @@ export function pageHeader(opts: {
   illustrationAlt: string;
   title: string;
   cohort: string;
-  status: "live" | "designed";
   lede: string;
   goals: GoalRow[];
 }): HTMLElement {
@@ -29,7 +28,7 @@ export function pageHeader(opts: {
           "h1",
           { class: "page-title-line" },
           h("span", { class: "page-title" }, opts.title),
-          h("span", { class: "page-title-meta" }, h("span", { class: "cohort" }, opts.cohort), statusTag(opts.status)),
+          h("span", { class: "page-title-meta" }, h("span", { class: "cohort" }, opts.cohort)),
         ),
         h("p", { class: "lede" }, opts.lede),
         goalSpec(opts.goals),

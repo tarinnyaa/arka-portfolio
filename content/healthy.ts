@@ -5,7 +5,6 @@ export const HEALTHY = {
   header: {
     title: "Healthy adults",
     cohort: "Working-age adults",
-    status: "designed" as const,
     illustrationAlt: "An adult in a bright home, morning light coming through a window.",
     ribbonLabel: "Light ribbon: a 24-hour lux profile with three target bands",
     lede: "Deliberately the densest interface on the platform: the visual opposite of Glaucoma and Stroke.",
@@ -130,7 +129,6 @@ export const HEALTHY = {
       "Healthy adults in a light study are typically curious about their own data. The score, the arcs and the full-day chart give them something to explore.",
       "Density is still bounded: three arcs, not ten metrics; one chart, not a dashboard. Every number carries a status in words.",
       "Lumi is enabled here because the audience can carry a conversation about their day and correct the sensor's blind spots: it never sees the room.",
-      "This is a designed configuration. Nothing on this page has run with participants.",
     ],
   },
   closing: "The data is the intervention here. Elsewhere, it isn't.",

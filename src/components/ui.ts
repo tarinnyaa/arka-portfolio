@@ -1,6 +1,6 @@
 // Shared UI (spec §5): GoalChips, LoopDiagram, ConfigCard, NudgeBanner,
 // ChartFrame, StatusRibbon, DesignDecision, RationaleDrawer, section heads.
-import { CHART, NEXT_LINKS, STATUS } from "@content/shared";
+import { CHART, NEXT_LINKS } from "@content/shared";
 import { h, id, s } from "../lib/dom";
 import { onEnter, reducedMotion } from "../lib/motion";
 import { href, type RouteKey } from "../lib/router";
@@ -28,18 +28,6 @@ export function goalSpec(goals: GoalRow[]): HTMLElement {
     ...goals.flatMap((g) => [
       h("div", { class: "goal-row" }, h("dt", null, g.value), h("dd", null, g.label, g.refs.length ? evidence(...g.refs) : null)),
     ]),
-  );
-}
-
-export function statusTag(status: "live" | "designed"): HTMLElement {
-  const live = status === "live";
-  const tip = live ? STATUS.liveTooltip : STATUS.designedTooltip;
-  return h(
-    "span",
-    { class: `status-tag status-tag--${status}`, tabindex: "0" },
-    h("span", { class: "status-dot", "aria-hidden": "true" }),
-    h("span", { class: "status-tag-label" }, live ? STATUS.live : STATUS.designed),
-    h("span", { class: "status-tooltip", role: "tooltip" }, tip),
   );
 }
 
@@ -310,7 +298,7 @@ export function rationaleDrawer(r: { button: string; title: string; paragraphs: 
 /** Dark closing band at the foot of every demographic page, followed by the
  *  repeated six tab navigation so a reader can move on without scrolling
  *  back to the top. */
-export function closingBand(routeKey: string, line: string, opts: { designed?: boolean } = {}): HTMLElement {
+export function closingBand(routeKey: string, line: string): HTMLElement {
   const next = NEXT_LINKS[routeKey];
   const band = h(
     "section",
@@ -323,8 +311,7 @@ export function closingBand(routeKey: string, line: string, opts: { designed?: b
       next ? h("a", { href: href(next.path), "data-link": true, class: "btn btn--amber" }, next.label, arrowIcon(16)) : null,
     ),
   );
-  const note = opts.designed ? h("p", { class: "designed-note wrap" }, STATUS.designedFooter) : null;
-  return h("div", { class: "page-end" }, band, note, bottomNav(routeKey as RouteKey));
+  return h("div", { class: "page-end" }, band, bottomNav(routeKey as RouteKey));
 }
 
 /** Proposed tag — untested design hypothesis. */

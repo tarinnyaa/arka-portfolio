@@ -33,7 +33,7 @@ export function endingScene() {
       "figure",
       { class: "sg-phone", "data-enter": true },
       phone,
-      h("figcaption", null, h("span", { class: "sg-name" }, p.name), h("span", { class: "sg-outcome" }, p.outcome), h("span", { class: `sg-status mono-label${p.status === "live" ? " is-live" : ""}` }, p.status === "live" ? S.live : S.proposed)),
+      h("figcaption", null, h("span", { class: "sg-name" }, p.name), h("span", { class: "sg-outcome" }, p.outcome)),
     );
   });
   const sectionA = h(
@@ -150,7 +150,6 @@ export function endingScene() {
       h("p", { class: "cc-brand" }, K.brand.split("").join(" ")),
       h("h2", { id: "conclusion-h", class: "cc-line" }, K.line),
       h("p", { class: "cc-sub" }, K.sub),
-      h("p", { class: "cc-status mono-label" }, K.status),
     ),
   );
 
